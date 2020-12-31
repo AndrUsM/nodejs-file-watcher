@@ -6,6 +6,14 @@ function createFile(filePath) {
     }
 }
 
+function writeFile(filePath, data) {
+    createFile(filePath);
+    fs.writeFile(filePath, data, (error) => {
+        if (error) console.log(`Error writing ${data} to ${filePath}.`);
+        return true;
+    })
+}
+
 function clearFile(filePath) {
     createFile(filePath);
     fs.writeFileSync(filePath, '');
@@ -13,7 +21,6 @@ function clearFile(filePath) {
 
 function appendFile(filePath, data) {
     createFile(filePath);
-    // clearFile(filePath);
     fs.appendFile(filePath, data, { encoding: 'utf8' }, (err) => {
         if (err) console.log(err);
     })
@@ -36,5 +43,6 @@ module.exports = {
     appendFile: appendFile,
     clearFile: clearFile,
     createFile: createFile,
-    readFile: readFile
+    readFile: readFile,
+    writeFile: writeFile
 }
