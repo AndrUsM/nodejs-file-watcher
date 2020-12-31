@@ -1,4 +1,6 @@
 const fs = require('fs');
+const eventEmmiter = require('../Events/events');
+const saveToHistory = require('../historyUtils/saveToHistory');
 const { getFileType } = require('./checkFileType');
 const formatSize = require('./formatSize');
 
@@ -12,7 +14,12 @@ function watchFile(filePath) {
                 previous: previous,
                 filePath: filePath
             });
-            console.log(report)
+            // saveToHistory({
+            //     filePath: filePath,
+            //     event: eventEmmiter(filePath),
+            //     savedFileData: {}
+            // })
+            return report;
         }
     )
 }
