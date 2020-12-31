@@ -1,31 +1,27 @@
-const fs = require('fs');
 const os = require('os');
-const path = require('path');
-const { exec } = require('child_process');
-
-const readFilesId = require('./functions/watchUtils/readFilesId');
-const watchFolderRecursively = require('./functions/watchUtils/watchFolderRecursively');
 const { clearFile } = require('./functions/dataUtils/dataUtils');
-const watchFile = require('./functions/watchUtils/watchFile');
-const { checkFsContent } = require('./functions/watchUtils/checkFileType');
-const generateFileId = require('./functions/watchUtils/generateFileId');
-const {
-    appendFile
-} = require('./functions/dataUtils/dataUtils');
 const {
     currentFilesIdPath,
     previousFilesIdPath,
-    applicationHistoryPath
+    applicationHistoryPath,
+    applicationDefaultMode,
+    applicationModeConfigFilePath
 } = require('./constants');
+
+const defaultWatchFolder = require('./useCases/defaultWatchFolder');
+const watchFolderLinux = require('./useCases/watchFolderLinux');
+const setApplicationMode = require('./functions/mode/setApplicationMode');
 
 let initialization = true;
 
-async function preInitialization() {
+function preInitialization() {
     if (initialization) {
+        clearFile(applicationModeConfigFilePath);
         clearFile(currentFilesIdPath)
         clearFile(previousFilesIdPath);
         clearFile(applicationHistoryPath)
     }
+    initialization = false;
 }
 
 // process.on('exit', (code) => {
@@ -35,73 +31,39 @@ async function preInitialization() {
 // })
 
 function watchResponder(line) {
-    const folderPath = line.split(' ')[1];
-    preInitialization();
-    switch (os.platform()) {
-        case "linux": {
-            watchFolderLinux(folderPath);
-            break;
-        }
-        default:
-        case "darwin":
-        case "win32": {
-            watchFolderWindows(folderPath);
-            break;
-        }
-    }
-}
+    const splitedLine = line.split(' ');
 
-function watchFolderLinux(folderPath) {
-    let files = [];
+    if (splitedLine) {
+        const folderPath = splitedLine ? splitedLine[1] : '';
 
-    folderPath = path.join(os.homedir(), 'Pictures');
-    const getFilesProcess = exec(`find ${folderPath} -type f`);
-
-    const uploadFilesData = () => {
-        initialization = false;
-        const currentFSState = readFilesId('current');
-        getFilesProcess.stdout.on('data', function (chunk) {
-            if (checkFsContent(path.resolve(chunk)), 'file') {
-                files.push(chunk);
-            }
+        const applicationMode = splitedLine ? splitedLine[2] : applicationDefaultMode;
+        setApplicationMode({
+            mode: applicationMode
         });
 
-        getFilesProcess.on('exit', (code, signal) => {
-            files = files.join('').split('\n');
-
-            const setPreviousIdentifiers = () => {
-                // on start app create and clear service files
-                if (initialization) {
-                    clearFile(currentFilesIdPath)
-                    clearFile(previousFilesIdPath);
-                    clearFile(applicationHistoryPath)
+        if (folderPath) {
+            console.log('File or folder path is not defined!');
+        } else {
+            preInitialization();
+            switch (os.platform()) {
+                case "linux": {
+                    watchFolderLinux({
+                        folderPath: folderPath,
+                        initialization: initialization
+                    });
+                    break;
                 }
-                else {
-                    appendFile(previousFilesIdPath, currentFSState.toString());
-                    clearFile(currentFilesIdPath);
+                default:
+                case "darwin":
+                case "win32": {
+                    defaultWatchFolder(folderPath);
+                    break;
                 }
             }
-
-            setPreviousIdentifiers();
-
-            files.forEach(item => {
-                if (item) {
-                    const fileId = generateFileId(item, { whitespaces: true });
-                    appendFile(currentFilesIdPath, fileId);
-                    watchFile(item);
-                }
-            });
-        })
+        }
+    } else {
+        console.log('Error')
     }
-    watchFolderRecursively({
-        initialization: initialization,
-        folderPath: folderPath,
-        uploadFilesData: uploadFilesData()
-    });
-}
-
-function watchFolderWindows(folderPath) {
-    return fs.watch(folderPath, { recursive: true });
 }
 
 module.exports = watchResponder;
