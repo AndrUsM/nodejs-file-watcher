@@ -1,12 +1,12 @@
 const os = require('os');
 const fs = require('fs');
 const path = require('path');
-const { exec } = require('child_process');
-
+const { exec } = require('child_process'); 
 const { checkFsContent } = require('./checkFileType');
 const fsListener = require('./fsListener');
 const eventEmmiter = require('../Events/events');
 const saveToHistory = require('../historyUtils/saveToHistory');
+const consoleHistory = require('../dataUtils/consoleHistory');
 
 function watchFolderRecursively(parameters) {
     const { callback } = parameters;
@@ -47,15 +47,7 @@ function watchFolderRecursively(parameters) {
         folders.forEach(folder => {
             fs.watch(folder).on('change', (eventType, filename) => {
                 const _path = path.join(folder, filename);
-
                 const fileChangeEvent = eventEmmiter(_path);
-                const message = [
-                    filename,
-                    'was',
-                    fileChangeEvent
-                ].join(' ');
-
-                console.log(message);
 
                 saveToHistory(
                     {
@@ -64,6 +56,8 @@ function watchFolderRecursively(parameters) {
                         savedFileData: {}
                     }
                 );
+
+                consoleHistory();
 
                 switch (eventType) {
                     case 'rename': {
