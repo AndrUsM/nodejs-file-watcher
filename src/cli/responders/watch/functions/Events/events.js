@@ -1,15 +1,14 @@
 const fs = require('fs');
-const generateFileId = require('../watchUtils/generateFileId');
-const readFilesId = require('../watchUtils/readFilesId');
 const getHistory = require('../historyUtils/getHistory');
 const saveToHistory = require('../historyUtils/saveToHistory');
-const generateHistoryReport = require('../historyUtils/generateHistoryReport');
-
-const EVENT_CREATED = 'created';
-const EVENT_REMOVE = 'removed';
-const EVENT_EDITED = 'edited';
-const EVENT_ACCESS = 'accessed';
-const EVENT_UNHANDLED = 'lost';
+const consoleHistory = require('../dataUtils/consoleHistory');
+const {
+    EVENT_ACCESS,
+    EVENT_CREATED,
+    EVENT_REMOVE,
+    EVENT_UNHANDLED,
+    EVENT_EDITED
+} = require('./eventsList');
 
 function eventEmmiter(filePath) {
     const isExist = fs.existsSync(filePath);
@@ -54,6 +53,7 @@ function removeCondition(filePath) {
         fileHistory = fileHistory.sort((a, b) => b - a);
 
         const fileLastChange = fileHistory[0];
+        console.log(fileLastChange)
         if (fileLastChange) {
             saveToHistory(
                 {
@@ -62,6 +62,7 @@ function removeCondition(filePath) {
                     savedFileData: fileLastChange
                 }
             )
+            consoleHistory();
             return fileHistory && fileHistory.length > 0;
         } else {
             return false;
