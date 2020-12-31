@@ -9,17 +9,15 @@ handler.index = async (data, callback) => {
     const _path = path.join('/home/akarpenko/Work/Practice/fileWatcher/src/cli/responders/watch/data/.history.dat');
 
     const _history = getHistory();
-
     const interpolateData = {
         history: helpers.generateTable(_history)
     };
 
-    // helpers.generateTable(getHistory())
-
     let template = await helpers.getTemplate('index');
+
     template = helpers.interpolate(template, interpolateData);
     const isExist = fs.existsSync(_path);
-    // getHistory()
+    
     if (isExist) {
         callback(200, template, 'html');
     } else {
@@ -45,26 +43,13 @@ handler.public = async (data, callback) => {
                 extension = 'style'
                 break;
             }
-            case asset_name.includes('.png'):
-                content_type = 'png'
-                extension = 'image'
-                break;
-            case asset_name.includes('.jpg'):
-            case asset_name.includes('.jpeg'):
-                content_type = 'jpg'
-                extension = 'image'
-                break;
-            case asset_name.includes('.ico'):
-                content_type = 'favicon'
-                extension = 'image'
-                break;
             case asset_name.includes('.js'):
                 content_type = 'js'
                 extension = 'js'
                 break;
             default:
                 content_type = 'plain'
-                extension = 'image'
+                extension = 'text'
                 break;
         }
         let asset = await helpers.getStaticAsset(asset_name, extension)

@@ -16,47 +16,85 @@ helpers.getTemplate = async (templatename) => {
     return page;
 }
 
-helpers.generateTable = (data) => {
-    let resoult = '';
 
-    resoult += '<table>';
-
-    [
+helpers.generateTableHead = (tableStr) => {
+    const headers = [
         'event',
         'filename',
         'size',
         'type',
         'path',
-        'fileId',
         'access time',
         'modification time',
         'change time',
         'creation time'
-    ].forEach(_title => {
-        resoult += `<th>${_title}</th>`
-    })
+    ];
 
-    data.forEach(item => {
-        resoult += '<tr>';
-        Object.values(item).forEach(field => {
-            // console.log(field);
-            resoult += `<td>${field}</td>`;
-        });
-        resoult += '</tr>';
+    headers.forEach(item => {
+        tableStr += `<th class='table__head'>${item}</th>`;
     });
 
-    resoult += '</table>';
-    return resoult;
+    return helpers.wrapHtmlBlock(tableStr, 'tr');
+}
+
+helpers.wrapHtmlBlock = (tableStr, tag, className) => {
+    className = className ? className : '';
+    return [
+        `<${tag} class=${className}>`,
+        tableStr,
+        `</${tag}>`
+    ].join('');
+}
+
+helpers.generateTableBody = (tableStr, data) => {
+    data = data.length > 15 ? data.slice(data.length - 15, data.length) : data;
+
+    data.forEach(item => {
+        Object.values(item).forEach(field => {
+            tableStr += `<td class='table__data'>${field}</td>`;
+        });
+        tableStr = helpers.wrapHtmlBlock(tableStr, 'tr', 'table__row');
+    });
+    return helpers.wrapHtmlBlock(tableStr, 'tr', 'table__row');
+}
+
+helpers.generateTable = (data) => {
+    let tableStr = '';
+
+    tableStr = helpers.generateTableHead(tableStr);
+    tableStr = helpers.generateTableBody(tableStr, data);
+    tableStr = helpers.wrapHtmlBlock(tableStr, 'table', 'table');
+
+    return tableStr.trim();
 }
 
 helpers.interpolate = (str, data = {}) => {
-    // Object.entries(config.globalTokens).forEach(([key, value]) => {
-    //     data[`global.${key}`] = value
-    // })
     Object.entries(data).forEach(([key, value]) => {
         str = str.toString().replace(`{${key}}`, value)
     })
     return str
+}
+
+helpers.getStaticAsset = async (filename, extension) => {
+    if (!filename) throw new Error('A valid static asset name was not specified')
+    let assetsDir
+    switch (extension) {
+        case 'style':
+        case 'js':
+            assetsDir = path.join(__dirname, '..', '..');
+            break;
+        case 'plain': s
+        default:
+            break;
+    }
+    const filepath = path.join(assetsDir, filename)
+    let data
+    try {
+        data = await fs.readFileSync(filepath)
+    } catch (err) {
+        throw new Error('No statis asset was found')
+    }
+    return data
 }
 
 module.exports = helpers;
