@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  background: darkslategray;
+}
+
+.table {
+  padding: 1rem;
+  letter-spacing: 0.5px;
+}
+.table__row {
+  overflow: auto;
+}
+
+.table__row:hover {
+  border-bottom: 1px solid lightgoldenrodyellow;
+}
+
+.table__data {
+  width: 10%;
+  line-height: 2;
+  text-align: center;
+  word-wrap: break-word;
+  color: lightgoldenrodyellow;
+}
+.table__head {
+  color: white;
+}
