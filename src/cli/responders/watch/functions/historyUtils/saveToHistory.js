@@ -6,7 +6,8 @@ const {
 const { applicationHistoryPath } = require('../../constants');
 const generateHistoryReport = require('./generateHistoryReport');
 
-const SPECIAL_SIGN = require('./constants');
+const specialSign = require('./constants');
+const dataObjectExpectedLength = 9;
 
 function saveToHistory(fileData) {
     let {
@@ -20,19 +21,20 @@ function saveToHistory(fileData) {
     if (!fs.existsSync(applicationHistoryPath))
         createFile(applicationHistoryPath);
 
-
     let data = generateHistoryReport(filePath, event, {
         deleted: !isFileExist,
         savedFileData: savedFileData
     });
-
     data = data && typeof data !== 'string' ? JSON.stringify(data) : data;
-    
-    if (Object.values(JSON.parse(data)).length === 10) {
+
+    const dataLength = Object.values(JSON.parse(data)).length;
+    const checkDataLength = dataLength === dataObjectExpectedLength;
+
+    if (checkDataLength) {
         const addSpecialSign = () => {
             return [
                 data,
-                SPECIAL_SIGN
+                specialSign
             ].join('');
         }
 
