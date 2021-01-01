@@ -5,7 +5,7 @@ function historyChanged() {
     const previousFSState = readFilesId('prev');
 
     return (
-        JSON.stringify(currentFSState) ===
+        JSON.stringify(currentFSState) !==
         JSON.stringify(previousFSState)
     );
 }
