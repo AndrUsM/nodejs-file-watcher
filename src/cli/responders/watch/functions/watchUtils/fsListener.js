@@ -7,7 +7,6 @@ function fsListener(callback) {
     console.log(currentFSState, previousFSState);
 
     let isEqual = JSON.stringify(currentFSState) === JSON.stringify(previousFSState);
-    // if(isEqual) console.log('FS state was changed!');
     if (isEqual) callback;
 }
 
