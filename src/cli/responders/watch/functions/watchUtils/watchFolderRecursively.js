@@ -20,7 +20,7 @@ const initFunction = (parameters) => {
     }
 }
 
-function _watchFolderRecursively(parameters) {
+function watchFolderRecursively(parameters) {
     const { callback } = parameters;
 
     let {
@@ -59,36 +59,30 @@ function _watchFolderRecursively(parameters) {
             fs.watch(folder).on('change', (eventType, filename) => {
                 const _path = path.join(folder, filename);
                 const fileChangeEvent = eventEmmiter(_path);
-
-                saveToHistory(
-                    {
-                        filePath: _path,
-                        event: fileChangeEvent,
-                        savedFileData: {}
-                    }
-                );
-
-                consoleHistory();
-
-                switch (eventType) {
-                    case 'rename': {
-                        callback;
-                        break;
-                    }
-                }
+                _saveHistoryData({
+                    filePath: _path,
+                    fileChangeEvent: fileChangeEvent
+                });
+                callback;
             });
         })
     })
 }
 
-function watchFolderRecursively(parameters) {
+function _saveHistoryData(parameters) {
     const {
-        folderPath
+        filePath,
+        fileChangeEvent
     } = parameters;
 
-    fs.watch(folderPath, 'utf8', _ => {
-        _watchFolderRecursively(parameters);
-    });
+    saveToHistory(
+        {
+            filePath: filePath,
+            event: fileChangeEvent,
+            savedFileData: {}
+        }
+    );
+    consoleHistory();
 }
 
 module.exports = watchFolderRecursively;
