@@ -2,7 +2,11 @@ const fs = require('fs');
 
 function createFile(filePath) {
     if (!fs.existsSync(filePath)) {
-        fs.openSync(filePath, "r+");
+        fs.writeFileSync(
+            filePath,
+            '',
+            { encoding: 'utf8' }
+        );
     }
 }
 

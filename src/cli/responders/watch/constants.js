@@ -6,7 +6,7 @@ const previousFilesIdPath = path.resolve(baseDataPath, '.previousFilesID.dat');
 
 const applicationHistoryPath = path.resolve(baseDataPath, '.history.dat');
 
-const applicationModeConfigFilePath = path.join(baseDataPath, '.mode.dat');
+const applicationModeConfigFilePath = path.resolve(baseDataPath, '.mode.dat');
 const applicationBrowserMode = 'browser';
 const applicationConsoleMode = 'browser';
 const applicationDefaultMode = 'both';

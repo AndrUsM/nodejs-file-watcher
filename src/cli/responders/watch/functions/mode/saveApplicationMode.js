@@ -1,10 +1,9 @@
 const fs = require('fs');
 const { writeFile } = require('../dataUtils/dataUtils');
 const { applicationModeConfigFilePath, applicationDefaultMode } = require("../../constants");
-const checkApplicationModeValue = require('./checkModeValue');
-const setDefaultApplicationMode = require('./setDefaultMode');
+const checkApplicationModeValue = require('./checkApplicationModeValue');
 
-function saveApplicationModeValueToFile(modeValue) {
+function saveApplicationMode(modeValue) {
     const allowWritingToFile =
         fs.existsSync(applicationModeConfigFilePath) &&
         checkApplicationModeValue(modeValue);
@@ -15,4 +14,11 @@ function saveApplicationModeValueToFile(modeValue) {
     }
 }
 
-module.exports = saveApplicationModeValueToFile
+function setDefaultApplicationMode() {
+    writeFile(applicationModeConfigFilePath, applicationDefaultMode);
+}
+
+module.exports = {
+    saveApplicationMode:saveApplicationMode,
+    setDefaultApplicationMode: setDefaultApplicationMode
+}

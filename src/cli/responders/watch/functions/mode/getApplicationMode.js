@@ -4,7 +4,7 @@ const {
 } = require('../dataUtils/dataUtils');
 const { applicationModeConfigFilePath } = require('../../constants');
 const checkApplicationModeValue = require('./checkModeValue');
-const setDefaultApplicationMode = require('./setDefaultMode');
+const { setDefaultApplicationMode } = require('./saveApplicationMode');
 const handleApplicationMode = require('./handleApplicationMode');
 
 function getApplicationMode(functions) {
