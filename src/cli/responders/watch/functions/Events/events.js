@@ -41,6 +41,22 @@ function _getEventName(filePath) {
     if (editCondition) return EVENT_EDITED;
 }
 
+function _saveRemovedDataToHistory(parameters) {
+    const {
+        filePath,
+        fileLastChange
+    } = parameters;
+
+    saveToHistory(
+        {
+            filePath: filePath,
+            event: EVENT_REMOVE,
+            savedFileData: fileLastChange
+        }
+    );
+    consoleHistory();
+}
+
 function removeCondition(filePath) {
     const _history = getHistory();
 
@@ -50,20 +66,16 @@ function removeCondition(filePath) {
                 return item.path === filePath
             }
         });
-        fileHistory = fileHistory.sort((a, b) => b - a);
 
+        fileHistory = fileHistory.sort((a, b) => b - a);
         const fileLastChange = fileHistory[0];
-        console.log(fileLastChange)
+
         if (fileLastChange) {
-            saveToHistory(
-                {
-                    filePath: filePath,
-                    event: EVENT_REMOVE,
-                    savedFileData: fileLastChange
-                }
-            )
-            consoleHistory();
-            return fileHistory && fileHistory.length > 0;
+            _saveRemovedDataToHistory({
+                filePath: filePath,
+                fileLastChange: fileLastChange
+            });
+            return fileHistory && fileHistory.length > 0;;
         } else {
             return false;
         }
