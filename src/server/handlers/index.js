@@ -1,12 +1,11 @@
 const fs = require('fs');
-const path = require('path');
 const helpers = require('../utlis/templates');
 const getHistory = require('../../cli/responders/watch/functions/historyUtils/getHistory');
+const { applicationHistoryPath } = require('../../cli/responders/watch/constants');
 
 const handler = {};
 
 handler.index = async (data, callback) => {
-    const _path = path.join('/home/akarpenko/Work/Practice/fileWatcher/src/cli/responders/watch/data/.history.dat');
 
     const _history = getHistory();
     const interpolateData = {
@@ -16,8 +15,8 @@ handler.index = async (data, callback) => {
     let template = await helpers.getTemplate('index');
 
     template = helpers.interpolate(template, interpolateData);
-    const isExist = fs.existsSync(_path);
-    
+    const isExist = fs.existsSync(applicationHistoryPath);
+
     if (isExist) {
         callback(200, template, 'html');
     } else {
