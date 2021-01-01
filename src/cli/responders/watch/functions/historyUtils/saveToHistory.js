@@ -37,7 +37,6 @@ function saveToHistory(fileData) {
                 specialSign
             ].join('');
         }
-
         try {
             appendFile(applicationHistoryPath, addSpecialSign());
         } catch (error) {
