@@ -16,7 +16,6 @@ const {
     previousFilesIdPath,
     applicationHistoryPath
 } = require('../constants');
-const { watch } = require('fs');
 
 function watchFolderLinux(parameters) {
     let { folderPath } = parameters;
