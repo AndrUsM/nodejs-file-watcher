@@ -20,7 +20,7 @@ const initFunction = (parameters) => {
     }
 }
 
-function watchFolderRecursively(parameters) {
+function updateFsData(parameters) {
     const { callback } = parameters;
 
     let {
@@ -43,8 +43,6 @@ function watchFolderRecursively(parameters) {
             folders.push(chunk)
         }
     });
-
-    fsListener(callback);
 
     getFoldersProcess.on('exit', () => {
         // remove empty elements, home directory and present as array
@@ -81,6 +79,17 @@ function _saveHistoryData(parameters) {
         savedFileData: {}
     });
     consoleHistory();
+}
+
+function watchFolderRecursively(parameters) {
+    const {
+        callback
+    } = parameters;
+
+    setInterval(() => {
+        if (fsListener(callback))
+            updateFsData(parameters);
+    }, 2000);
 }
 
 module.exports = watchFolderRecursively;

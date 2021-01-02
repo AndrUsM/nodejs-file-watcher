@@ -17,7 +17,10 @@ const {
     applicationHistoryPath
 } = require('../constants');
 
-function setPreviousIdentifiers() {
+function setPreviousIdentifiers(parameters) {
+    const {
+        initialization
+    } = parameters;
     const currentFSState = readFilesId('current');
     // on start app create and clear service files
     if (initialization) {
@@ -49,8 +52,9 @@ function watchFolderLinux(parameters) {
 
         getFilesProcess.on('exit', (code, signal) => {
             files = files.join('').split('\n');
-            setPreviousIdentifiers();
-            setPreviousIdentifiers();
+            setPreviousIdentifiers({
+                initialization: initialization
+            });
 
             files.forEach(item => {
                 if (item) {
