@@ -75,13 +75,11 @@ function _saveHistoryData(parameters) {
         fileChangeEvent
     } = parameters;
 
-    saveToHistory(
-        {
-            filePath: filePath,
-            event: fileChangeEvent,
-            savedFileData: {}
-        }
-    );
+    saveToHistory({
+        filePath: filePath,
+        event: fileChangeEvent,
+        savedFileData: {}
+    });
     consoleHistory();
 }
 

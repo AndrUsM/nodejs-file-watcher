@@ -17,6 +17,20 @@ const {
     applicationHistoryPath
 } = require('../constants');
 
+function setPreviousIdentifiers() {
+    const currentFSState = readFilesId('current');
+    // on start app create and clear service files
+    if (initialization) {
+        clearFile(currentFilesIdPath)
+        clearFile(previousFilesIdPath);
+        clearFile(applicationHistoryPath)
+    }
+    else {
+        appendFile(previousFilesIdPath, currentFSState.toString());
+        clearFile(currentFilesIdPath);
+    }
+}
+
 function watchFolderLinux(parameters) {
     let { folderPath } = parameters;
     const { initialization } = parameters;
@@ -27,7 +41,6 @@ function watchFolderLinux(parameters) {
     const getFilesProcess = exec(`find ${folderPath} -type f`);
 
     const uploadFilesData = () => {
-        const currentFSState = readFilesId('current');
         getFilesProcess.stdout.on('data', function (chunk) {
             if (checkFsContent(path.resolve(chunk)), 'file') {
                 files.push(chunk);
@@ -36,20 +49,7 @@ function watchFolderLinux(parameters) {
 
         getFilesProcess.on('exit', (code, signal) => {
             files = files.join('').split('\n');
-
-            const setPreviousIdentifiers = () => {
-                // on start app create and clear service files
-                if (initialization) {
-                    clearFile(currentFilesIdPath)
-                    clearFile(previousFilesIdPath);
-                    clearFile(applicationHistoryPath)
-                }
-                else {
-                    appendFile(previousFilesIdPath, currentFSState.toString());
-                    clearFile(currentFilesIdPath);
-                }
-            }
-
+            setPreviousIdentifiers();
             setPreviousIdentifiers();
 
             files.forEach(item => {
