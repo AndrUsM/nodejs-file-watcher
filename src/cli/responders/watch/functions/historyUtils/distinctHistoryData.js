@@ -1,5 +1,6 @@
 const { applicationHistoryPath } = require("../../constants");
-const { writeFile, clearFile } = require("../dataUtils/dataUtils");
+const { writeFile } = require("../dataUtils/dataUtils");
+const { EVENT_REMOVE } = require("../Events/eventsList");
 const SPECIAL_SIGN = require("./constants");
 const getHistory = require("./getHistory");
 
@@ -37,17 +38,24 @@ function distinctHistoryData() {
         resoult = [
             ...new Map(
                 resoult.map(
-                    item => [item[key], item])
+                    item => {
+                        const _keyItem = (_key) => item[_key];
+                        if (_keyItem('event') !== EVENT_REMOVE) {
+                            return [_keyItem(key), item]
+                        } else {
+                            return item;
+                        }
+                    })
             ).values()
         ];
-        resoult.forEach(historyRecord => {
-            let _item = [
-                JSON.stringify(historyRecord),
-                SPECIAL_SIGN
-            ].join('');
-            clearFile(applicationHistoryPath);
-            writeFile(applicationHistoryPath, _item);
-        });
+
+        const writeValue = [
+            resoult.map(item =>
+                JSON.stringify(item))
+                .join(SPECIAL_SIGN),
+            SPECIAL_SIGN
+        ].join("");
+        writeFile(applicationHistoryPath, writeValue);
     }
 }
 
