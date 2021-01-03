@@ -8,6 +8,7 @@ const generateHistoryReport = require('./generateHistoryReport');
 
 const specialSign = require('./constants');
 const getHistory = require('./getHistory');
+const distinctHistoryData = require('./distinctHistoryData');
 const dataObjectExpectedLength = 9;
 
 function readPreviousValue() {
@@ -48,15 +49,16 @@ function saveToHistory(fileData) {
         }
         try {
             const appendAction = appendFile(applicationHistoryPath, addSpecialSign());
-            // if (!savedFileData && Object.values(savedFileData).length) {
-                appendAction();
-            // } else {
+            if (!savedFileData && Object.values(savedFileData).length) {
+                appendAction;
+            } else {
                 appendFile(applicationHistoryPath, addSpecialSign());
-            // }
+            }
         } catch (error) {
             console.log(error);
         }
     }
+    // distinctHistoryData();
 }
 
 module.exports = saveToHistory;

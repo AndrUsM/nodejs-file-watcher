@@ -7,7 +7,7 @@ function defaultWatchFolder(folderPath) {
         saveToHistory({
             event: eventEmmiter(filePath),
             filePath: folderPath,
-            saveToHistory: {}
+            savedFileData: {}
         });
     });
 }
