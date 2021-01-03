@@ -13,7 +13,21 @@ function getHistory() {
                 .slice(0, -1)
                 .trim()
                 .split(SPECIAL_SIGN).
-                map(item => item ? JSON.parse(item) : {})
+                map(item => {
+                    switch (typeof item) {
+                        case 'object':
+                            return item;
+                        case 'string':
+                            try {
+                                return JSON.parse(item);
+                            } catch (error) {
+                                return {};
+                            }
+                        default:
+                            return {};
+
+                    }
+                })
         } else {
             return [];
         }
