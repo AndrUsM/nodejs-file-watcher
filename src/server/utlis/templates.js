@@ -47,7 +47,7 @@ helpers.wrapHtmlBlock = (tableStr, tag, className) => {
 }
 
 helpers.generateTableBody = (tableStr, data) => {
-    data = data.length > 15 ? data.slice(data.length - 15, data.length) : data;
+    data = data.length > 10 ? data.slice(data.length - 10, data.length) : data;
 
     data.forEach(item => {
         Object.values(item).forEach(field => {
