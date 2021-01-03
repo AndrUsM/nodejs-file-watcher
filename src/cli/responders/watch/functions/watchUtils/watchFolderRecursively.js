@@ -8,30 +8,10 @@ const eventEmmiter = require('../Events/events');
 const saveToHistory = require('../historyUtils/saveToHistory');
 const consoleHistory = require('../dataUtils/consoleHistory');
 
-const initFunction = (parameters) => {
-    let {
-        callback,
-        initialization
-    } = parameters;
-
-    if (initialization) {
-        callback;
-        initialization = false;
-    }
-}
-
 function updateFsData(parameters) {
-    const { callback } = parameters;
-
     let {
         folderPath,
-        initialization
     } = parameters;
-
-    initFunction({
-        callback: callback,
-        initialization: initialization
-    });
 
     let folders = [];
 
@@ -61,7 +41,7 @@ function updateFsData(parameters) {
                     filePath: _path,
                     fileChangeEvent: fileChangeEvent
                 });
-                callback;
+                // callback;
             });
         })
     })
@@ -82,14 +62,12 @@ function _saveHistoryData(parameters) {
 }
 
 function watchFolderRecursively(parameters) {
-    const {
-        callback
-    } = parameters;
+    const { callback } = parameters;
 
     setInterval(() => {
-        if (fsListener(callback))
-            updateFsData(parameters);
-    }, 2000);
+        callback;
+        updateFsData(parameters);
+    }, 1000);
 }
 
 module.exports = watchFolderRecursively;

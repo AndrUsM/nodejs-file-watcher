@@ -44,25 +44,36 @@ function watchResponder(line) {
         if (folderPath) {
             console.log('File or folder path is not defined!');
         } else {
-            preInitialization();
-            switch (os.platform()) {
-                case "linux": {
-                    watchFolderLinux({
-                        folderPath: folderPath,
-                        initialization: initialization
-                    });
-                    break;
-                }
-                default:
-                case "darwin":
-                case "win32": {
-                    defaultWatchFolder(folderPath);
-                    break;
-                }
-            }
+            _platformCases({
+                initialization: initialization,
+                folderPath: folderPath
+            })
         }
     } else {
         console.log('Error')
+    }
+}
+
+function _platformCases(parameters) {
+    let {
+        folderPath,
+        initialization
+    } = parameters;
+    preInitialization();
+    switch (os.platform()) {
+        case "linux": {
+            watchFolderLinux({
+                folderPath: folderPath,
+                initialization: initialization
+            });
+            break;
+        }
+        default:
+        case "darwin":
+        case "win32": {
+            defaultWatchFolder(folderPath);
+            break;
+        }
     }
 }
 

@@ -18,17 +18,9 @@ const {
 } = require('../constants');
 
 function setPreviousIdentifiers(parameters) {
-    const {
-        initialization
-    } = parameters;
+    const { initialization } = parameters;
     const currentFSState = readFilesId('current');
-    // on start app create and clear service files
-    if (initialization) {
-        clearFile(currentFilesIdPath)
-        clearFile(previousFilesIdPath);
-        clearFile(applicationHistoryPath)
-    }
-    else {
+    if (!initialization) {
         appendFile(previousFilesIdPath, currentFSState.toString());
         clearFile(currentFilesIdPath);
     }
@@ -41,21 +33,21 @@ function watchFolderLinux(parameters) {
     let files = [];
 
     folderPath = path.join(os.homedir(), 'Pictures');
-    const getFilesProcess = exec(`find ${folderPath} -type f`);
+
 
     const uploadFilesData = () => {
+        const getFilesProcess = exec(`find ${folderPath} -type f`);
+
         getFilesProcess.stdout.on('data', function (chunk) {
             if (checkFsContent(path.resolve(chunk)), 'file') {
                 files.push(chunk);
             }
         });
 
+        setPreviousIdentifiers(parameters);
+
         getFilesProcess.on('exit', (code, signal) => {
             files = files.join('').split('\n');
-            setPreviousIdentifiers({
-                initialization: initialization
-            });
-
             files.forEach(item => {
                 if (item) {
                     const fileId = generateFileId(item, { whitespaces: true });
@@ -69,7 +61,7 @@ function watchFolderLinux(parameters) {
     watchFolderRecursively({
         initialization: initialization,
         folderPath: folderPath,
-        uploadFilesData: uploadFilesData()
+        callback: uploadFilesData()
     });
 }
 

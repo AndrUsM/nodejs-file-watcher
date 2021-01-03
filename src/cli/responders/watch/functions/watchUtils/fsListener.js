@@ -1,11 +1,10 @@
 const readFilesId = require('./readFilesId');
 
-function fsListener(callback) {
+function fsListener() {
     const currentFSState = readFilesId('current');
     const previousFSState = readFilesId('prev');
 
     let isEqual = JSON.stringify(currentFSState) !== JSON.stringify(previousFSState);
-    if (isEqual) callback;
     return isEqual;
 }
 
