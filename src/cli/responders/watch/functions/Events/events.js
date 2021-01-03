@@ -47,13 +47,13 @@ function _saveRemovedDataToHistory(parameters) {
         fileLastChange
     } = parameters;
 
-    // saveToHistory(
-    //     {
-    //         filePath: filePath,
-    //         event: EVENT_REMOVE,
-    //         savedFileData: fileLastChange
-    //     }
-    // );
+    saveToHistory(
+        {
+            filePath: filePath,
+            event: EVENT_REMOVE,
+            savedFileData: fileLastChange
+        }
+    );
     consoleHistory();
 }
 
