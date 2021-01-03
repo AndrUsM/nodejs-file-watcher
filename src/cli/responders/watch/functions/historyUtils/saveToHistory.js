@@ -7,17 +7,8 @@ const { applicationHistoryPath } = require('../../constants');
 const generateHistoryReport = require('./generateHistoryReport');
 
 const specialSign = require('./constants');
-const getHistory = require('./getHistory');
 const distinctHistoryData = require('./distinctHistoryData');
 const dataObjectExpectedLength = 9;
-
-function readPreviousValue() {
-    const _history = getHistory();
-    if (history && history.length) {
-        return _history[_history.length];
-    } else
-        return false;
-}
 
 function saveToHistory(fileData) {
     let {
@@ -58,7 +49,7 @@ function saveToHistory(fileData) {
             console.log(error);
         }
     }
-    // distinctHistoryData();
+    distinctHistoryData();
 }
 
 module.exports = saveToHistory;
