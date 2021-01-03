@@ -14,7 +14,6 @@ const {
 const {
     currentFilesIdPath,
     previousFilesIdPath,
-    applicationHistoryPath
 } = require('../constants');
 
 function setPreviousIdentifiers(parameters) {
@@ -37,14 +36,12 @@ function watchFolderLinux(parameters) {
 
     const uploadFilesData = () => {
         const getFilesProcess = exec(`find ${folderPath} -type f`);
-
+        setPreviousIdentifiers(parameters);
         getFilesProcess.stdout.on('data', function (chunk) {
             if (checkFsContent(path.resolve(chunk)), 'file') {
                 files.push(chunk);
             }
         });
-
-        setPreviousIdentifiers(parameters);
 
         getFilesProcess.on('exit', (code, signal) => {
             files = files.join('').split('\n');
