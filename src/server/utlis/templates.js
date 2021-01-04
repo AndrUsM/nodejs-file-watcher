@@ -31,7 +31,7 @@ helpers.generateTableHead = (tableStr) => {
     ];
 
     headers.forEach(item => {
-        tableStr += `<th class='table__head'>${item}</th>`;
+        tableStr += `<th class='table__head table__field'>${item}</th>`;
     });
 
     return helpers.wrapHtmlBlock(tableStr, 'tr');
@@ -51,7 +51,7 @@ helpers.generateTableBody = (tableStr, data) => {
 
     data.forEach(item => {
         Object.values(item).forEach(field => {
-            tableStr += `<td class='table__data'>${field}</td>`;
+            tableStr += `<td class='table__data table__field'>${field}</td>`;
         });
         tableStr = helpers.wrapHtmlBlock(tableStr, 'tr', 'table__row');
     });
