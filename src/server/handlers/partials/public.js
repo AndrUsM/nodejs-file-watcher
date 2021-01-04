@@ -1,4 +1,4 @@
-const helpers = require('../utlis/templates');
+const helpers = require('../../utlis/templates');
 
 const publicHandler = async (data, callback) => {
     if (data.method !== 'get') {

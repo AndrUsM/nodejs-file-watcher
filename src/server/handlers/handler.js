@@ -1,6 +1,6 @@
-const notFoundHandler = require('./notFound');
-const indexPageHandler = require('./index');
-const publicHandler = require('./public');
+const notFoundHandler = require('./partials/notFound');
+const indexPageHandler = require('./partials/index');
+const publicHandler = require('./partials/public');
 
 const handler = {};
 
