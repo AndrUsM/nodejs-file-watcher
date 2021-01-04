@@ -71,7 +71,9 @@ const baseHandler = async (req, res) => {
         })
     }
     catch (error) {
-        res.
+        res.setHeader('Content-Type', 'text/plain')
+        res.writeHead(500);
+        res.end(error);
     }
 }
 
