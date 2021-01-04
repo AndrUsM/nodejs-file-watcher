@@ -45,7 +45,6 @@ function watchResponder(line) {
             console.log('File or folder path is not defined!');
         } else {
             _platformCases({
-                initialization: initialization,
                 folderPath: folderPath
             })
         }
@@ -56,8 +55,7 @@ function watchResponder(line) {
 
 function _platformCases(parameters) {
     let {
-        folderPath,
-        initialization
+        folderPath
     } = parameters;
     preInitialization();
     switch (os.platform()) {
