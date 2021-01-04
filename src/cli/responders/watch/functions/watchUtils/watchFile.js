@@ -1,4 +1,8 @@
 const fs = require('fs');
+const path = require('path');
+const eventEmmiter = require('../Events/events');
+const formatTime = require('../historyUtils/formatTime');
+const saveToHistory = require('../historyUtils/saveToHistory');
 const { getFileType } = require('./checkFileType');
 const formatSize = require('./formatSize');
 
@@ -12,7 +16,9 @@ function watchFile(filePath) {
                 previous: previous,
                 filePath: filePath
             });
-            return report;
+            saveToHistory({
+                fileData: report
+            });
         }
     )
 }
@@ -23,15 +29,28 @@ function generateReport(items) {
         previous,
         filePath
     } = items;
+    const {
+        atime,
+        ctime,
+        mtime,
+        birthtime,
+    } = current;
 
+    const filename = path.basename(filePath);
     return {
-        name: filePath,
+        event: eventEmmiter(filePath),
+        filename: filename,
+        size: [
+            `current: ${formatSize(current.size)}`,
+            `previous: ${formatSize(previous.size)}`,
+            `changes: ${formatSize(current.size - previous.size)}`
+        ].join('\n'),
         type: getFileType(current),
-        size: {
-            current: formatSize(current.size),
-            previous: formatSize(previous.size),
-            changes: formatSize(current.size - previous.size)
-        }
+        path: filePath,
+        accessTime: formatTime(atime),
+        modificationTime: formatTime(mtime),
+        changeTime: formatTime(ctime),
+        creationTime: formatTime(birthtime)
     }
 }
 
