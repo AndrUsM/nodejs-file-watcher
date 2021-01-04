@@ -11,7 +11,7 @@ function consoleHistory() {
     if(consoleData && consoleData.length > 0)
         console.log(consoleData);
     else
-        console.log('History is empty!')
+        console.log('History is empty!');
 }
 
 module.exports = consoleHistory;
