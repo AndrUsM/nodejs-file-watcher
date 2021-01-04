@@ -1,7 +1,8 @@
 const commands = {
     'clear': 'clear',
     'watch': 'watch',
-    'exit': 'exit'
+    'exit': 'exit',
+    'history': 'history'
 }
 
 module.exports = commands;
