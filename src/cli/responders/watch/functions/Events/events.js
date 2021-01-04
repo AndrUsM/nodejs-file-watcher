@@ -1,7 +1,5 @@
 const fs = require('fs');
 const getHistory = require('../historyUtils/getHistory');
-const saveToHistory = require('../historyUtils/saveToHistory');
-const consoleHistory = require('../dataUtils/consoleHistory');
 const {
     EVENT_ACCESS,
     EVENT_CREATED,
@@ -41,22 +39,6 @@ function _getEventName(filePath) {
     if (editCondition) return EVENT_EDITED;
 }
 
-// function _saveRemovedDataToHistory(parameters) {
-//     const {
-//         filePath,
-//         fileLastChange
-//     } = parameters;
-
-//     saveToHistory(
-//         {
-//             filePath: filePath,
-//             event: EVENT_REMOVE,
-//             savedFileData: fileLastChange
-//         }
-//     );
-//     consoleHistory();
-// }
-
 function removeCondition(filePath) {
     const _history = getHistory();
 
@@ -71,10 +53,6 @@ function removeCondition(filePath) {
         const fileLastChange = fileHistory[0];
 
         if (fileLastChange) {
-            // _saveRemovedDataToHistory({
-            //     filePath: filePath,
-            //     fileLastChange: fileLastChange
-            // });
             return fileHistory && fileHistory.length > 0;
         } else {
             return false;

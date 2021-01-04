@@ -1,4 +1,4 @@
-const handler = require('../handlers/index');
+const handler = require('../handlers/handler');
 
 const routers = {
     '': handler.index

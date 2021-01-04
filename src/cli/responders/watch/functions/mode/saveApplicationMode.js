@@ -19,6 +19,6 @@ function setDefaultApplicationMode() {
 }
 
 module.exports = {
-    saveApplicationMode:saveApplicationMode,
+    saveApplicationMode: saveApplicationMode,
     setDefaultApplicationMode: setDefaultApplicationMode
 }

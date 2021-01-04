@@ -2,24 +2,25 @@ const fs = require('fs');
 const {
     readFile
 } = require('../dataUtils/dataUtils');
-const { applicationModeConfigFilePath } = require('../../constants');
-const checkApplicationModeValue = require('./checkModeValue');
+const { applicationModeConfigFilePath, applicationDefaultMode } = require('../../constants');
+const checkApplicationModeValue = require('./checkApplicationModeValue');
 const { setDefaultApplicationMode } = require('./saveApplicationMode');
-const handleApplicationMode = require('./handleApplicationMode');
 
-function getApplicationMode(functions) {
+function getApplicationMode() {
     const _path = applicationModeConfigFilePath;
     const checkExistence = fs.existsSync(_path);
 
     if (checkExistence) {
         const mode = readFile(_path);
         if (checkApplicationModeValue(mode)) {
-            handleApplicationMode(mode, functions)
+            return mode;
         } else {
             setDefaultApplicationMode();
+            return applicationDefaultMode;
         }
     } else {
         setDefaultApplicationMode();
+        return applicationDefaultMode;
     }
 }
 

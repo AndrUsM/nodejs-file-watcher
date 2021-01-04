@@ -37,6 +37,7 @@ function watchResponder(line) {
         const folderPath = splitedLine ? splitedLine[1] : '';
 
         const applicationMode = splitedLine ? splitedLine[2] : applicationDefaultMode;
+        console.log(applicationMode);
         setApplicationMode({
             mode: applicationMode
         });
@@ -55,7 +56,7 @@ function watchResponder(line) {
 
 function _platformCases(parameters) {
     let {
-        folderPath
+        folderPath,
     } = parameters;
     preInitialization();
     switch (os.platform()) {

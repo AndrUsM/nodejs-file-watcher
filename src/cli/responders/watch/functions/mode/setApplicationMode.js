@@ -1,5 +1,5 @@
 const checkApplicationModeValue = require('./checkApplicationModeValue');
-const saveApplicationMode = require('./saveApplicationMode');
+const { saveApplicationMode } = require('./saveApplicationMode');
 const { setDefaultApplicationMode } = require('./saveApplicationMode');
 
 function setApplicationMode(parameters) {

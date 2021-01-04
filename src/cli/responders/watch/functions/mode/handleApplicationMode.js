@@ -1,9 +1,18 @@
-function handleApplicationMode(mode, functions) {
+const {
+    applicationBrowserMode,
+    applicationConsoleMode,
+    applicationDefaultMode
+} = require("../../constants");
+const getApplicationMode = require("./getApplicationMode");
+
+function handleApplicationMode(functions) {
     const {
         browserModeCallback,
         consoleModeCallback,
         defaultModeCallback
     } = functions;
+
+    const mode = getApplicationMode();
 
     switch (mode) {
         case applicationBrowserMode: {
@@ -30,7 +39,7 @@ function handleInvalidFunctionValue(_function) {
         const functionNameInMessage = [
             _function,
             'function'
-        ].join(':'),
+        ].join(':');
         const message = [
             functionNameInMessage,
             'have wrong type',

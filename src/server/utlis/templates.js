@@ -75,7 +75,7 @@ helpers.interpolate = (str, data = {}) => {
     return str
 }
 
-helpers.getStaticAsset = async (filename, extension) => {
+helpers.getStaticAsset = (filename, extension) => {
     if (!filename) throw new Error('A valid static asset name was not specified')
     let assetsDir
     switch (extension) {
@@ -83,14 +83,14 @@ helpers.getStaticAsset = async (filename, extension) => {
         case 'js':
             assetsDir = path.join(__dirname, '..', '..');
             break;
-        case 'plain': s
+        case 'plain':
         default:
             break;
     }
     const filepath = path.join(assetsDir, filename)
     let data
     try {
-        data = await fs.readFileSync(filepath)
+        data = fs.readFileSync(filepath)
     } catch (err) {
         throw new Error('No statis asset was found')
     }
