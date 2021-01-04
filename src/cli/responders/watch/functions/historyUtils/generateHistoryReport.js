@@ -38,7 +38,7 @@ function _fileReport(parameters) {
         ctime,
         mtime,
         birthtime,
-        size,
+        size
     } = fileStats;
 
     return {
