@@ -4,7 +4,6 @@ const { exec } = require('child_process');
 
 const readFilesId = require('../functions/watchUtils/readFilesId');
 const watchFolderRecursively = require('../functions/watchUtils/watchFolderRecursively');
-const { clearFile } = require('../functions/dataUtils/dataUtils');
 const watchFile = require('../functions/watchUtils/watchFile');
 const { checkFsContent } = require('../functions/watchUtils/checkFileType');
 const generateFileId = require('../functions/watchUtils/generateFileId');
@@ -16,18 +15,14 @@ const {
     previousFilesIdPath,
 } = require('../constants');
 
-function setPreviousIdentifiers(parameters) {
-    const { initialization } = parameters;
+function setPreviousIdentifiers() {
     const currentFSState = readFilesId('current');
-    if (!initialization) {
-        appendFile(previousFilesIdPath, currentFSState.toString());
-        clearFile(currentFilesIdPath);
-    }
+    appendFile(previousFilesIdPath, currentFSState.toString());
 }
 
 function watchFolderLinux(parameters) {
     let { folderPath } = parameters;
-    const { initialization } = parameters;
+    let { initialization } = parameters;
 
     let files = [];
 
@@ -36,12 +31,13 @@ function watchFolderLinux(parameters) {
 
     const uploadFilesData = () => {
         const getFilesProcess = exec(`find ${folderPath} -type f`);
-        setPreviousIdentifiers(parameters);
         getFilesProcess.stdout.on('data', function (chunk) {
             if (checkFsContent(path.resolve(chunk)), 'file') {
                 files.push(chunk);
             }
         });
+
+        setPreviousIdentifiers(parameters);
 
         getFilesProcess.on('exit', (code, signal) => {
             files = files.join('').split('\n');
