@@ -15,8 +15,11 @@ body {
   border-bottom: 1px solid lightgoldenrodyellow;
 }
 
+.table__field {
+  width: 11%;
+}
 .table__data {
-  width: 10%;
+  width: 11%;
   line-height: 2;
   text-align: center;
   word-wrap: break-word;
