@@ -20,7 +20,7 @@ const indexPage = async (data, callback) => {
 }
 
 const consoleModeCallback = async (data, callback) => {
-    callback(200, "Enable browser mode!", 'html');
+    callback(200, "Browser mode is disabled. Restart application with <both> or <browser> mode.", 'html');
 }
 
 const browserModeCallback = async (data, callback) => {
