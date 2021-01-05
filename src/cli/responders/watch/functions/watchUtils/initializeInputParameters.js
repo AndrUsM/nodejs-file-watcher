@@ -10,6 +10,7 @@ function initializeApplicationMode(splitedLine) {
         line: applicationMode,
         type: 'string',
         field: 'mode',
+        required: false,
         defaultValue: applicationDefaultMode,
         checkFunction: function (value) {
             return (
@@ -24,6 +25,7 @@ function initializeWatchPath(splitedLine) {
     let folderPath = splitedLine ? splitedLine[1] : '';
     folderPath = destructureLine({
         line: folderPath,
+        required: true,
         type: 'string',
         field: 'path',
         defaultValue: os.homedir(),
