@@ -1,3 +1,7 @@
+const {
+    out,
+    messageType
+} = require('../../lib/coloredOut/out');
 const clearResponder = require('../responders/clear');
 const { commandHistory } = require('./commandsHistory');
 
@@ -50,7 +54,7 @@ function _getLastCommand() {
         const _index = commandsArray.length - 1;
         return commandsArray[_index];
     } else {
-        console.log('Command history is empty!')
+        out('Command history is empty!', messageType.warning);
     }
 }
 

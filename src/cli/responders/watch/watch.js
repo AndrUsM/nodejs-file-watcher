@@ -6,6 +6,9 @@ const {
     previousFilesIdPath,
     applicationHistoryPath,
     applicationModeConfigFilePath,
+    applicationDefaultMode,
+    applicationBrowserMode,
+    applicationConsoleMode,
 } = require('./constants');
 const defaultWatchFolder = require('./useCases/defaultWatchFolder');
 const watchFolderLinux = require('./useCases/watchFolderLinux');
@@ -13,7 +16,11 @@ const setApplicationMode = require('./functions/mode/setApplicationMode');
 const {
     initializeApplicationMode,
     initializeWatchPath
-} = require('./functions/watchUtils/initializeInputParameters.js')
+} = require('./functions/watchUtils/initializeInputParameters.js');
+const {
+    out,
+    messageType
+} = require('../../../lib/coloredOut/out');
 
 let initialization = true;
 
@@ -29,14 +36,30 @@ function watchResponder(line) {
         });
 
         if (!folderPath) {
-            console.log('File or folder path is not defined!');
+            out('File or folder path is not defined!', messageType.warning);
         } else {
             _platformCases({
                 folderPath: folderPath
             });
         }
     } else {
-        console.log('Error');
+        const message = [
+            'Watch responder must have',
+            [
+                'path:string',
+                '<mode:string>'
+            ].join(', '),
+            'Mode has such values: ',
+            [
+                applicationDefaultMode,
+                applicationBrowserMode,
+                applicationConsoleMode
+            ].join(', ')
+        ].join(' ');
+        out(
+            message,
+            messageType.error
+        );
     }
 }
 

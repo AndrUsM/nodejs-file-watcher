@@ -1,5 +1,9 @@
 const getHistory = require('./getHistory');
 const handleApplicationMode = require('../mode/handleApplicationMode');
+const {
+    out,
+    messageType
+} = require('../../../../../lib/coloredOut/out');
 
 function consoleHistory() {
     const _history = getHistory();
@@ -12,9 +16,9 @@ function consoleHistory() {
 
     const consoleModeCallback = () => {
         if (consoleData && consoleData.length > 0)
-            console.log(consoleData);
+            out(consoleData, messageType.default);
         else
-            console.log('History is empty!');
+            out('History is empty!', messageType.warning)
     };
     const browserModeCallback = () => { };
 

@@ -1,4 +1,8 @@
 const fs = require('fs');
+const { 
+    out, 
+    messageType 
+} = require('../../../../../lib/coloredOut/out');
 
 function createFile(filePath) {
     if (!fs.existsSync(filePath)) {
@@ -13,7 +17,11 @@ function createFile(filePath) {
 function writeFile(filePath, data) {
     createFile(filePath);
     fs.writeFile(filePath, data, (error) => {
-        if (error) console.log(`Error writing ${data} to ${filePath}.`);
+        if (error)
+            out(
+                `Error writing ${data} to ${filePath}.`,
+                messageType.error
+            );
         return true;
     })
 }
@@ -26,7 +34,11 @@ function clearFile(filePath) {
 function appendFile(filePath, data) {
     createFile(filePath);
     fs.appendFile(filePath, data, { encoding: 'utf8' }, (err) => {
-        if (err) console.log(err);
+        if (err)
+            out(
+                err.message,
+                messageType.error
+            );
     })
 }
 
