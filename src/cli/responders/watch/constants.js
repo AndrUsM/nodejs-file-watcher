@@ -8,8 +8,8 @@ const applicationHistoryPath = path.resolve(baseDataPath, '.history.dat');
 
 const applicationModeConfigFilePath = path.resolve(baseDataPath, '.mode.dat');
 const applicationBrowserMode = 'browser';
-const applicationConsoleMode = 'browser';
-const applicationDefaultMode = 'both';
+const applicationConsoleMode = 'console';
+const applicationDefaultMode = 'default';
 const applicationModeList = [
     applicationConsoleMode,
     applicationDefaultMode,
