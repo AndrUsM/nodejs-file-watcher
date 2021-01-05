@@ -1,11 +1,8 @@
 const getHistory = require('./getHistory');
-const getApplicationMode = require('../mode/getApplicationMode');
-const { applicationConsoleMode, applicationDefaultMode } = require('../../constants');
 const handleApplicationMode = require('../mode/handleApplicationMode');
 
 function consoleHistory() {
     const _history = getHistory();
-    const _appMode = getApplicationMode();
 
     const consoleData = _history.length > 5 ?
         _history.slice(
