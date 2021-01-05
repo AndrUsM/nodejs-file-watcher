@@ -15,7 +15,12 @@ function getEventName(filePath) {
     } = fs.statSync(filePath);
 
     const accessCondition = +ctime > +mtime;
-    const createCondition = allEqual([+ctime, +atime, +birthtime, +mtime]);
+    const createCondition = allEqual([
+        +ctime,
+        +atime,
+        +birthtime,
+        +mtime
+    ]);
     const editCondition = +mtime > +birthtime;
 
     if (createCondition) return EVENT_CREATED;
