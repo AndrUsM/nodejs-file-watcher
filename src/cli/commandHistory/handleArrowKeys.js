@@ -1,15 +1,13 @@
 const clearResponder = require('../responders/clear');
-const exitResponder = require('../responders/exit');
 const { commandHistory } = require('./commandsHistory');
 
 function handleArrowKeys() {
     var stdin = process.stdin;
-    // stdin.setRawMode(true);
     stdin.resume();
     stdin.setEncoding('utf8');
 
     stdin.on('data', function (key) {
-        let charAsAscii = key.toString().charCodeAt(0);
+        // let charAsAscii = key.toString().charCodeAt(0);
         switch (key) {
             case '\u0002': {
                 clearResponder();
