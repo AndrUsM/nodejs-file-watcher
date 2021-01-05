@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const eventEmmiter = require('../Events/events');
+const eventEmmiter = require('../events/events');
 const consoleHistory = require('../historyUtils/consoleHistory');
 const formatTime = require('../historyUtils/formatTime');
 const saveToHistory = require('../historyUtils/saveToHistory');
