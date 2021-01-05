@@ -42,7 +42,7 @@ function watchResponder(line) {
             mode: applicationMode
         });
 
-        if (folderPath) {
+        if (!folderPath) {
             console.log('File or folder path is not defined!');
         } else {
             _platformCases({
@@ -55,10 +55,9 @@ function watchResponder(line) {
 }
 
 function _platformCases(parameters) {
-    let {
-        folderPath,
-    } = parameters;
+    let { folderPath, } = parameters;
     preInitialization();
+    
     switch (os.platform()) {
         case "linux": {
             watchFolderLinux({
