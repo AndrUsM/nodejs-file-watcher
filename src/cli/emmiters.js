@@ -1,10 +1,10 @@
 const EventEmmiter = require('events');
-const { commandHistory } = require('./commandHistory/commandsHistory');
 const commands = require('./commandList');
 
 const clearResponder = require('./responders/clear');
 const watchResponder = require('./responders/watch/watch');
 const exitResponder = require('./responders/exit');
+const historyResponder = require('./responders/history');
 
 const emmiter = new EventEmmiter();
 
@@ -21,7 +21,7 @@ emmiter.on(commands.watch, line => {
 });
 
 emmiter.on(commands.history, _ => {
-    console.log(commandHistory);
+    historyResponder();
 })
 
 module.exports = emmiter;
