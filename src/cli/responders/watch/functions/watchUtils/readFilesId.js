@@ -7,15 +7,19 @@ const {
     currentFilesIdPath
 } = require('../../constants');
 
-// type:string = prev | current
+const readFilesIdType = {
+    prev: "prev",
+    current: "current"
+}
+
 function readFilesId(type) {
     let _path = '';
     switch (type) {
-        case 'prev': {
+        case readFilesIdType.prev: {
             _path = previousFilesIdPath;
             break;
         }
-        case 'current': {
+        case readFilesIdType.current: {
             _path = currentFilesIdPath;
             break;
         }
@@ -33,4 +37,7 @@ function readFilesId(type) {
     }
 }
 
-module.exports = readFilesId;
+module.exports = {
+    readFilesId: readFilesId,
+    readFilesIdType: readFilesIdType
+}
