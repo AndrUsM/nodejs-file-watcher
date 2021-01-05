@@ -1,3 +1,9 @@
+const {
+    out,
+    messageType
+} = require("../../../../../lib/coloredOut/out");
+const clearResponder = require("../../../clear");
+
 function destructureLine(parameters) {
     const {
         line,
@@ -5,8 +11,11 @@ function destructureLine(parameters) {
         type,
         defaultValue,
         generateValue,
-        checkFunction
+        checkFunction,
     } = parameters;
+
+    let { required } = parameters;
+    required = typeof required === 'boolean' ? required : false;
 
     if (typeof line === 'string') {
         const splitedLine = line.split('=');
@@ -19,7 +28,8 @@ function destructureLine(parameters) {
         }
 
         const checkPathValue = checkFunction(_value);
-        const returnLinePathCondition = _key === field && checkPathValue;
+        const checkKeyOfInputValue = _key === field;
+        const returnLinePathCondition = checkKeyOfInputValue && checkPathValue;
         if (returnLinePathCondition) {
             return _value;
         } else {
@@ -28,13 +38,29 @@ function destructureLine(parameters) {
                 `Type: ${typeof _value}, Value: ${_value}.`,
                 `Was used default ${field} value: ${defaultValue}.`
             ].join('\n');
-            console.log(message)
-            return defaultValue;
+            out(message, messageType.warning);
+            if (!checkKeyOfInputValue && required)
+                exitOnError();
+            else
+                return defaultValue
         }
     } else {
-        console.log(`${field} right format: ${field}=<${field}Value: ${type}>`);
+        out(
+            `${field} right format: ${field}=<${field}Value: ${type}>`,
+            messageType.warning
+        );
         return defaultValue;
     }
+}
+
+function exitOnError() {
+    out(
+        'Required input data like <key>=<value> has invalid key or value. Check input data.',
+        messageType.error
+    );
+    setTimeout(() => {
+        console.clear();
+    }, 5000);
 }
 
 module.exports = destructureLine;
