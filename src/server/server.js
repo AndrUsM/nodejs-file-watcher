@@ -1,6 +1,6 @@
 const http = require('http');
 const cli = require('../cli/index');
-const baseHandler = require('./handlers/baseHandler');
+const baseHandler = require('./handlers/baseHandler/baseHandler');
 
 const port = process.env.PORT || 3000;
 const hostname = process.env.HOSTNAME || 'localhost';
