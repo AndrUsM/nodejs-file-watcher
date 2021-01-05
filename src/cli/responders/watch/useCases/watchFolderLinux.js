@@ -2,10 +2,10 @@ const os = require('os');
 const path = require('path');
 const { exec } = require('child_process');
 
-const readFilesId = require('../functions/watchUtils/readFilesId');
+const { readFilesId, readFilesIdType } = require('../functions/watchUtils/readFilesId');
 const watchFolderRecursively = require('../functions/watchUtils/watchFolderRecursively');
 const watchFile = require('../functions/watchUtils/watchFile');
-const { checkFsContent } = require('../functions/watchUtils/checkFileType');
+const { checkFileContent, checkFileContentType } = require('../functions/watchUtils/checkFileType');
 const generateFileId = require('../functions/watchUtils/generateFileId');
 const {
     appendFile
@@ -16,7 +16,7 @@ const {
 } = require('../constants');
 
 function setPreviousIdentifiers() {
-    const currentFSState = readFilesId('current');
+    const currentFSState = readFilesId(readFilesIdType.current);
     appendFile(previousFilesIdPath, currentFSState.toString());
 }
 
@@ -32,7 +32,7 @@ function watchFolderLinux(parameters) {
     const uploadFilesData = () => {
         const getFilesProcess = exec(`find ${folderPath} -type f`);
         getFilesProcess.stdout.on('data', function (chunk) {
-            if (checkFsContent(path.resolve(chunk)), 'file') {
+            if (checkFileContent(path.resolve(chunk)), checkFileContentType.file) {
                 files.push(chunk);
             }
         });
