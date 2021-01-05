@@ -2,7 +2,7 @@ const os = require('os');
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
-const { checkFsContent } = require('./checkFileType');
+const { checkFileContent, checkFileContentType } = require('./checkFileType');
 const { currentFilesIdPath } = require('../../constants');
 
 function updateFsData(parameters) {
@@ -17,7 +17,7 @@ function updateFsData(parameters) {
     const getFoldersProcess = exec(`find ${folderPath} -type d`);
 
     getFoldersProcess.stdout.on('data', chunk => {
-        if (checkFsContent(folderPath, 'dir')) {
+        if (checkFileContent(folderPath, checkFileContentType.directory)) {
             folders.push(chunk)
         }
     });
