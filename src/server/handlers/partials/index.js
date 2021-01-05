@@ -6,24 +6,24 @@ const { applicationHistoryPath, applicationBrowserMode, applicationDefaultMode }
 const getApplicationMode = require('../../../cli/responders/watch/functions/mode/getApplicationMode');
 
 const indexPage = async (data, callback) => {
-    switch(getApplicationMode()){
+    switch (getApplicationMode()) {
         case applicationBrowserMode:
-        case applicationDefaultMode:{
-            await browserModelCallback(data, callback);
+        case applicationDefaultMode: {
+            await browserModeCallback(data, callback);
             break;
         }
-        default:{
-            await consoleModelCallback(data, callback);
+        default: {
+            await consoleModeCallback(data, callback);
             break;
         }
     }
 }
 
-const consoleModelCallback = async (data, callback) => {
+const consoleModeCallback = async (data, callback) => {
     callback(200, "Enable browser mode!", 'html');
 }
 
-const browserModelCallback = async (data, callback) => {
+const browserModeCallback = async (data, callback) => {
     const _history = getHistory();
     const interpolateData = {
         history: tableUtils.generateTable(_history)
