@@ -1,8 +1,12 @@
 const Readline = require('readline');
 const commands = require('./commandList');
 const emmiter = require('./emmiters');
-const handleArrowKeys = require('./commandHistory/handleArrowKeys');
+const handleArrowKeys = require('./commandHistory/handleArrowKeys/handleArrowKeys');
 const { saveToCommandsHistory } = require('./commandHistory/commandsHistory');
+const {
+    out,
+    messageType
+} = require('../lib/coloredOut/out');
 
 const readline = Readline.createInterface({
     input: process.stdin,
@@ -32,7 +36,11 @@ cli.initialize = () => {
                 line: line
             });
         }
-        else console.info(`Command ${line} not found`);
+        else
+            out(
+                `Command ${line} not found`,
+                messageType.warning
+            );
 
         cli.promptMessage()
     });
