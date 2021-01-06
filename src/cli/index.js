@@ -12,6 +12,7 @@ const {
     appendCurrentLine,
     removeLastItemOfCurrentLine
 } = require('./commandHistory/handleKeyboard/currentLine.js');
+const outCurrentCommandTitle = require('../lib/outCurrentCommandTitle/outCurrentCommandTitle');
 
 const cli = {};
 
@@ -27,10 +28,10 @@ const readline = Readline.createInterface({
 });
 
 cli.saveCurrentLine = () => {
-    const ignoreKeyList = [127];
+    const ignoreKeyList = [127]; // backspace
     process.stdin.on('data', (data) => {
         const asciiKey = +data.codePointAt(0).toString(10);
-        const isServiceButtons =  ignoreKeyList.find(item => item === asciiKey);
+        const isServiceButtons = ignoreKeyList.find(item => item === asciiKey);
         const checkSymbols = asciiKey > 32 && !isServiceButtons;
         if (checkSymbols)
             appendCurrentLine(data.toString());
@@ -50,11 +51,13 @@ cli.initialize = () => {
         let matcherCommand = Object.keys(commands).find(command => enteredCommand.startsWith(command));
 
         if (matcherCommand) {
-            emmiter.emit(matcherCommand, line);
-            saveToCommandsHistory({
+            const functionParameters = {
                 command: matcherCommand,
                 line: line
-            });
+            };
+            emmiter.emit(matcherCommand, line);
+            saveToCommandsHistory(functionParameters);
+            outCurrentCommandTitle(functionParameters);
         }
         else
             out(
