@@ -5,7 +5,7 @@ const { getCurrentLine } = require('../currentLine');
 function backspaceKeyAction() {
     readline.clearLine(stdout);
     readline.cursorTo(stdout, 0);
-    stdout.write(getCurrentLine())
+    stdout.write(getCurrentLine());
 }
 
 module.exports = backspaceKeyAction;
