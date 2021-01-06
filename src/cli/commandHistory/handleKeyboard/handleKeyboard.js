@@ -95,7 +95,6 @@ function handleKeyboard() {
                 return stdout.write(key.toString());
             }
         }
-        // console.log(toUnicode(key));
     });
 }
 

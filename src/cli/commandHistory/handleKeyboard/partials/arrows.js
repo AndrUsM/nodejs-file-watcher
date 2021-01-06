@@ -1,8 +1,7 @@
 const getLastCommand = require('../getLastCommand');
 var readline = require('readline');
-// const { stdin } = require('process');
 
-const { stdout, stdin } = process;
+const { stdout } = process;
 
 function upArrowKeyAction() {
     console.clear();

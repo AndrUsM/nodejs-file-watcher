@@ -9,7 +9,17 @@ function clearCurrentLine() {
     currentLine.clear();
 }
 
-function getCurrentLine(){
+// oparation: -1, 1
+function removeLastItemOfCurrentLine() {
+    const _size = currentLine.size;
+    if (_size) {
+        let keyToRemove = Array.from(currentLine.keys())[_size - 1];
+        currentLine.delete(keyToRemove);
+    } else
+        return false;
+}
+
+function getCurrentLine() {
     return Array.from(currentLine.values()).join("")
 }
 
@@ -17,5 +27,6 @@ module.exports = {
     currentLine,
     appendCurrentLine,
     clearCurrentLine,
+    removeLastItemOfCurrentLine,
     getCurrentLine
 }

@@ -8,7 +8,10 @@ const {
     out,
     messageType
 } = require('../lib/coloredOut/out');
-const { appendCurrentLine } = require('./commandHistory/handleKeyboard/currentLine');
+const {
+    appendCurrentLine,
+    removeLastItemOfCurrentLine
+} = require('./commandHistory/handleKeyboard/currentLine');
 
 const cli = {};
 
@@ -24,10 +27,15 @@ const readline = Readline.createInterface({
 });
 
 cli.saveCurrentLine = () => {
+    const ignoreKeyList = [127];
     process.stdin.on('data', (data) => {
-        const checkSymbols = +data.codePointAt(0).toString(10) > 32;
+        const asciiKey = +data.codePointAt(0).toString(10);
+        const isServiceButtons =  ignoreKeyList.find(item => item === asciiKey);
+        const checkSymbols = asciiKey > 32 && !isServiceButtons;
         if (checkSymbols)
             appendCurrentLine(data.toString());
+        if (asciiKey === 127)
+            removeLastItemOfCurrentLine();
     });
 }
 
