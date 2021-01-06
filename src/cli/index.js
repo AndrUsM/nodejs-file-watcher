@@ -11,7 +11,7 @@ const {
 const {
     appendCurrentLine,
     removeLastItemOfCurrentLine
-} = require('./commandHistory/handleKeyboard/currentLine');
+} = require('./commandHistory/handleKeyboard/currentLine.js');
 
 const cli = {};
 

@@ -28,7 +28,7 @@ function handleKeyboard() {
         switch (key.charCodeAt(0)) {
             case 127: {
                 // backspace
-                backspaceKeyAction()
+                backspaceKeyAction();
                 break;
             }
         }
@@ -39,7 +39,7 @@ function handleKeyboard() {
                 break;
             }
             case "\u001B\u005B\u0048":
-                // home
+            // home
             case '\u0001': {
                 // ctrl + a
                 toStartLine()

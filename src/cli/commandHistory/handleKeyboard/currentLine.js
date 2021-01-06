@@ -20,7 +20,9 @@ function removeLastItemOfCurrentLine() {
 }
 
 function getCurrentLine() {
-    return Array.from(currentLine.values()).join("")
+    return Array.from(
+        currentLine.values()
+    ).join("");
 }
 
 module.exports = {
@@ -29,4 +31,4 @@ module.exports = {
     clearCurrentLine,
     removeLastItemOfCurrentLine,
     getCurrentLine
-}
+};

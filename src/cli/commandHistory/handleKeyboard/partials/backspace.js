@@ -1,11 +1,11 @@
 const readline = require('readline');
 const { stdout } = require('process');
-const { getCurrentLine } = require('../currentLine');
+const { clearCurrentLine } = require('../currentLine');
 
 function backspaceKeyAction() {
     readline.clearLine(stdout);
     readline.cursorTo(stdout, 0);
-    stdout.write(getCurrentLine());
+    clearCurrentLine();
 }
 
 module.exports = backspaceKeyAction;
