@@ -1,28 +1,40 @@
 const Readline = require('readline');
 const commands = require('./commandList');
 const emmiter = require('./emmiters');
-const handleArrowKeys = require('./commandHistory/handleArrowKeys/handleArrowKeys');
+const completer = require('./completer/completer');
+const handleKeyboard = require('./commandHistory/handleKeyboard/handleKeyboard');
 const { saveToCommandsHistory } = require('./commandHistory/commandsHistory');
 const {
     out,
     messageType
 } = require('../lib/coloredOut/out');
-
-const readline = Readline.createInterface({
-    input: process.stdin,
-    out: process.stdout
-})
+const { appendCurrentLine } = require('./commandHistory/handleKeyboard/currentLine');
 
 const cli = {};
 
 cli.promptMessage = () => {
     readline.prompt();
-    process.stdout.write("> ");
+}
+
+const readline = Readline.createInterface({
+    input: process.stdin,
+    out: process.stdout,
+    terminal: true,
+    completer: completer
+});
+
+cli.saveCurrentLine = () => {
+    process.stdin.on('data', (data) => {
+        const checkSymbols = +data.codePointAt(0).toString(10) > 32;
+        if (checkSymbols)
+            appendCurrentLine(data.toString());
+    });
 }
 
 cli.initialize = () => {
-    handleArrowKeys();
-    cli.promptMessage()
+    cli.promptMessage();
+    cli.saveCurrentLine();
+    handleKeyboard();
     readline.on('line', line => {
         console.clear();
         line = line.trim();
@@ -42,7 +54,7 @@ cli.initialize = () => {
                 messageType.warning
             );
 
-        cli.promptMessage()
+        cli.promptMessage();
     });
     readline.on('close', () => {
         process.exit(1);

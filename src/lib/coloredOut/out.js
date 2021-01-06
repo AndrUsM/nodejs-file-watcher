@@ -1,72 +1,35 @@
-const consoleColors = require('./colors');
-
-const messageType = {
-    "error": "error",
-    "info": "info",
-    "warning": "warning",
-    "default": "default",
-    "hidden": "hidden",
-    "underscore": "underscore"
-}
-
-function isNullOrUndefined(data) {
-    return (
-        typeof data === 'undefined' ||
-        !data
-    )
-}
+const generateColoredString = require('./generateColoredString');
+const isNullOrUndefined = require('../../lib/checkTypes/isNullOrUndefined');
+const messageType = require('./messageType');
 
 function out(data, type) {
-    let color = consoleColors.default;
-    const checkTypeValue = Object.values(messageType).includes(type);
+    returnData = typeof returnData === 'boolean' ? returnData : false;
 
-    if (checkTypeValue) {
-        switch (type) {
-            case messageType.hidden: {
-                color = consoleColors.hidden;
-                break;
-            }
-            case messageType.info: {
-                color = consoleColors.fgGreen;
-                break;
-            }
-            case messageType.underscore: {
-                color = consoleColors.underscore;
-                break;
-            }
-            case messageType.error: {
-                color = consoleColors.fgRed;
-                break;
-            }
-            case messageType.warning: {
-                color = consoleColors.fgYellow;
-                break;
-            }
-            case messageType.default:
-            default: {
-                color = consoleColors.default;
-                break;
-            }
-        }
-    }
-
-    const coloredMessage = [
-        color,
-        data,
-        consoleColors.default
-    ].join(' ');
+    let coloredMessage = generateColoredString({
+        data: data,
+        type: type,
+        messageType: messageType
+    })
 
     const isDataExist = !isNullOrUndefined(data);
     if (isDataExist) {
-        if (type === messageType.default)
-            console.log(data);
-        else
-            console.log(coloredMessage);
-    } else
-        console.log(coloredMessage);
+        if (type === messageType.default) {
+            execute(data);
+        }
+        else {
+            execute(coloredMessage);
+        }
+    } else {
+        execute(coloredMessage);
+    }
+}
+
+function execute(message) {
+    console.log(message);
 }
 
 module.exports = {
-    out: out,
-    messageType: messageType
+    out,
+    execute,
+    messageType:messageType
 }

@@ -2,10 +2,10 @@ const {
     out,
     messageType
 } = require("../../lib/coloredOut/out");
-const commandsHistory = require("../commandHistory/commandsHistory");
+const { commandHistory } = require("../commandHistory/commandsHistory");
 
 function historyResponder() {
-    out(commandsHistory(), messageType.info)
+    out(commandHistory, messageType.default)
 }
 
 module.exports = historyResponder;
