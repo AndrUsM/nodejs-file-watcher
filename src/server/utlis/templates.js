@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const helpers = {};
+const templates = {};
 
-helpers.getTemplate = async (templatename) => {
+templates.getTemplate = async (templatename) => {
     if (!templatename) throw new Error('Invalid template');
     const tempdir = path.join(__dirname, '..', '..', '..', 'src', 'public', 'html');
     const filepath = path.join(tempdir, `${templatename}.html`);
@@ -16,14 +16,14 @@ helpers.getTemplate = async (templatename) => {
     return page;
 }
 
-helpers.interpolate = (str, data = {}) => {
+templates.interpolate = (str, data = {}) => {
     Object.entries(data).forEach(([key, value]) => {
         str = str.toString().replace(`{${key}}`, value)
     })
     return str
 }
 
-helpers.getStaticAsset = (filename, extension) => {
+templates.getStaticAsset = (filename, extension) => {
     if (!filename) throw new Error('A valid static asset name was not specified')
     let assetsDir
     switch (extension) {
@@ -45,4 +45,4 @@ helpers.getStaticAsset = (filename, extension) => {
     return data
 }
 
-module.exports = helpers;
+module.exports = templates;

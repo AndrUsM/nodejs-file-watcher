@@ -1,7 +1,10 @@
 function handleContentType(parameters) {
-    const {
+    let {
         payload,
         response,
+    } = parameters;
+    
+    const {
         contentType
     } = parameters;
 
