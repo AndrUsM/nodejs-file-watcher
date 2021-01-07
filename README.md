@@ -1,6 +1,6 @@
 # Tool to Monitor Files and Folders for Changes in Real Time
 
-_Written with the node js platform_
+_Written using the node js platform_
 
 ## Command usage
 
