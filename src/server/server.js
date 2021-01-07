@@ -10,6 +10,16 @@ const port = process.env.PORT || 3000;
 const hostname = process.env.HOSTNAME || 'localhost';
 const server = http.createServer(baseHandler);
 
+function onExit() {
+    process.on('exit', function (code) {
+        server.close();
+        out(
+            `The application was closed with code ${code}.`,
+            messageType.info
+        )
+    });
+}
+
 function createServer() {
     server.listen(port, hostname, () => {
         out(
@@ -17,15 +27,8 @@ function createServer() {
             messageType.info
         );
     });
+    onExit();
 }
-
-process.on('exit', function (code) {
-    server.close();
-    out(
-        `The application was closed with code ${code}.`,
-        messageType.info
-    )
-});
 
 function runServer() {
     createServer();
