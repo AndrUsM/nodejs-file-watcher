@@ -1,8 +1,9 @@
+const formatSizeToUnits = require('./formatSizeToUnits');
+
 function formatSize(sizeInBytes) {
-    return [
-        sizeInBytes,
-        'B'
-    ].join(' ')
+    return formatSizeToUnits(sizeInBytes);
 }
+
+
 
 module.exports = formatSize;
