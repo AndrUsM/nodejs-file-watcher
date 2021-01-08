@@ -6,14 +6,13 @@ const { checkFileContent, checkFileContentType } = require('./checkFileType');
 const { currentFilesIdPath } = require('../../constants');
 
 function updateFsData(parameters) {
-    const { callback } = parameters;
-    let {
-        folderPath,
+    const {
+        // callback,
+        folderPath
     } = parameters;
 
     let folders = [];
 
-    folderPath = path.resolve(os.homedir(), 'Pictures');
     const getFoldersProcess = exec(`find ${folderPath} -type d`);
 
     getFoldersProcess.stdout.on('data', chunk => {

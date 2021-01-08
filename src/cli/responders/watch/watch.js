@@ -9,9 +9,10 @@ const {
     applicationDefaultMode,
     applicationBrowserMode,
     applicationConsoleMode,
+    watchFolderInfoPath,
 } = require('./constants');
 const defaultWatchFolder = require('./useCases/defaultWatchFolder');
-const watchFolderLinux = require('./useCases/watchFolderLinux');
+const { watchFolderLinux } = require('./useCases/watchFolderLinux');
 const setApplicationMode = require('./functions/mode/setApplicationMode');
 const {
     initializeApplicationMode,
@@ -21,6 +22,7 @@ const {
     out,
     messageType
 } = require('../../../lib/coloredOut/out');
+const setWatchFolder = require('./functions/watchFolder/setWatchFolder');
 
 let initialization = true;
 
@@ -34,6 +36,7 @@ function watchResponder(line) {
         setApplicationMode({
             mode: applicationMode
         });
+        setWatchFolder(folderPath, folderPath);
 
         if (!folderPath) {
             out('File or folder path is not defined!', messageType.warning);
@@ -70,7 +73,8 @@ function preInitialization() {
         clearFile(applicationModeConfigFilePath);
         clearFile(currentFilesIdPath)
         clearFile(previousFilesIdPath);
-        clearFile(applicationHistoryPath)
+        clearFile(applicationHistoryPath);
+        clearFile(watchFolderInfoPath);
     }
     initialization = false;
 }

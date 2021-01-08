@@ -11,7 +11,12 @@ var units = [
 ];
 
 const formatSizeToUnits = (bytes) => {
-    if (bytes == 0) return '0 B';
+    if (bytes <= 0) {
+        return [
+            bytes,
+            'B'
+        ].join(' ');
+    }
 
     const sizeLog = Math.log(bytes) / Math.log(1024);
     const size = Math.floor(sizeLog);

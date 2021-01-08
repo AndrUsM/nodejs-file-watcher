@@ -1,4 +1,3 @@
-const os = require('os');
 const path = require('path');
 const { exec } = require('child_process');
 
@@ -15,47 +14,55 @@ const {
     previousFilesIdPath,
 } = require('../constants');
 
+function watchFolderLinux(parameters) {
+    let { 
+        folderPath,
+        initialization
+    } = parameters;
+
+    watchFolderRecursively({
+        initialization: initialization,
+        folderPath: folderPath,
+        callback: uploadFilesData({
+            folderPath: folderPath
+        })
+    });
+}
+
 function setPreviousIdentifiers() {
     const currentFSState = readFilesId(readFilesIdType.current);
     appendFile(previousFilesIdPath, currentFSState.toString());
 }
 
-function watchFolderLinux(parameters) {
-    let { folderPath } = parameters;
-    let { initialization } = parameters;
+const uploadFilesData = (parameters) => {
+    const {
+        folderPath
+    } = parameters;
 
     let files = [];
 
-    folderPath = path.join(os.homedir(), 'Pictures');
+    const getFilesProcess = exec(`find ${folderPath} -type f`);
+    getFilesProcess.stdout.on('data', function (chunk) {
+        if (checkFileContent(path.resolve(chunk)), checkFileContentType.file) {
+            files.push(chunk);
+        }
+    });
 
+    setPreviousIdentifiers();
 
-    const uploadFilesData = () => {
-        const getFilesProcess = exec(`find ${folderPath} -type f`);
-        getFilesProcess.stdout.on('data', function (chunk) {
-            if (checkFileContent(path.resolve(chunk)), checkFileContentType.file) {
-                files.push(chunk);
+    getFilesProcess.on('exit', (code, signal) => {
+        files = files.join('').split('\n');
+        files.forEach(item => {
+            if (item) {
+                const fileId = generateFileId(item, { whitespaces: true });
+                appendFile(currentFilesIdPath, fileId);
+                watchFile(item);
             }
         });
-
-        setPreviousIdentifiers(parameters);
-
-        getFilesProcess.on('exit', (code, signal) => {
-            files = files.join('').split('\n');
-            files.forEach(item => {
-                if (item) {
-                    const fileId = generateFileId(item, { whitespaces: true });
-                    appendFile(currentFilesIdPath, fileId);
-                    watchFile(item);
-                }
-            });
-        })
-    }
-
-    watchFolderRecursively({
-        initialization: initialization,
-        folderPath: folderPath,
-        callback: uploadFilesData()
-    });
+    })
 }
 
-module.exports = watchFolderLinux;
+module.exports = {
+    watchFolderLinux,
+    uploadFilesData
+};
