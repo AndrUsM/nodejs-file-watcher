@@ -18,10 +18,11 @@ function completer(line) {
     const isFound = hits.length;
     const matches = [isFound ? hits : commandList, line];
     const title = isFound ? 'Matched commands' : 'Commands list';
+    const formattedData = matches[0].join(',');
 
     const message = {
         title: title,
-        data: matches[0].join(',')
+        data: formattedData
     }
     const outMessage = () => {
         const messageString = [
