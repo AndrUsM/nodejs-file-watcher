@@ -35,7 +35,7 @@ Keyboard action | Description
 Arrow up        | Run last command if it exist
 Arrow left      | Move cursor in left direction
 Arrow right     | Move cursor in right direction
-Backspace       | Clear current command text
+Backspace       | Clear line previous character
 Del             | Clear current line
 Ctrl + L        | Clear screen
 Ctrl + W        | Clear left command text
