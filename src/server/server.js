@@ -13,6 +13,7 @@ const server = http.createServer(baseHandler);
 function onExit() {
     process.on('exit', function (code) {
         server.close();
+        cli.clearConfigData();
         out(
             `The application was closed with code ${code}.`,
             messageType.info

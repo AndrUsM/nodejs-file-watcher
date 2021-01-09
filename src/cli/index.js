@@ -13,6 +13,14 @@ const {
     removeLastItemOfCurrentLine
 } = require('./commandHistory/handleKeyboard/currentLine.js');
 const outCurrentCommandTitle = require('../lib/outCurrentCommandTitle/outCurrentCommandTitle');
+const { clearFile } = require('./responders/watch/functions/dataUtils/dataUtils');
+const {
+    applicationHistoryPath,
+    applicationModeConfigFilePath,
+    watchFolderInfoPath,
+    currentFilesIdPath,
+    previousFilesIdPath
+} = require('./responders/watch/constants');
 
 const cli = {};
 
@@ -28,7 +36,7 @@ const readline = Readline.createInterface({
 });
 
 cli.saveCurrentLine = () => {
-    const ignoreKeyList = [127]; // backspace
+    const ignoreKeyList = [127]; // backspace key
     process.stdin.on('data', (data) => {
         const asciiKey = +data.codePointAt(0).toString(10);
         const isServiceButtons = ignoreKeyList.find(item => item === asciiKey);
@@ -38,6 +46,14 @@ cli.saveCurrentLine = () => {
         if (asciiKey === 127)
             removeLastItemOfCurrentLine();
     });
+}
+
+cli.clearConfigData = () => {
+    clearFile(applicationHistoryPath);
+    clearFile(applicationModeConfigFilePath);
+    clearFile(watchFolderInfoPath);
+    clearFile(currentFilesIdPath);
+    clearFile(previousFilesIdPath);
 }
 
 cli.initialize = () => {
