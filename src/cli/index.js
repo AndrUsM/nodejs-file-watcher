@@ -32,7 +32,7 @@ const readline = Readline.createInterface({
     input: process.stdin,
     out: process.stdout,
     terminal: true,
-    completer: completer
+    completer: completer,
 });
 
 cli.saveCurrentLine = () => {
@@ -40,7 +40,7 @@ cli.saveCurrentLine = () => {
     process.stdin.on('data', (data) => {
         const asciiKey = +data.codePointAt(0).toString(10);
         const isServiceButtons = ignoreKeyList.find(item => item === asciiKey);
-        const checkSymbols = asciiKey > 32 && !isServiceButtons;
+        const checkSymbols = asciiKey > 31 && !isServiceButtons; // 32 is a space key
         if (checkSymbols)
             appendCurrentLine(data.toString());
         if (asciiKey === 127)
