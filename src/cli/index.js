@@ -2,7 +2,7 @@ const Readline = require('readline');
 const commands = require('./commandList');
 const emmiter = require('./emmiters');
 const completer = require('./completer/completer');
-const handleKeyboard = require('./commandHistory/handleKeyboard/handleKeyboard');
+const handleKeyboard = require('./handleKeyboard/handleKeyboard');
 const { saveToCommandsHistory } = require('./commandHistory/commandsHistory');
 const {
     out,
@@ -11,7 +11,7 @@ const {
 const {
     appendCurrentLine,
     removeLastItemOfCurrentLine
-} = require('./commandHistory/handleKeyboard/currentLine.js');
+} = require('./handleKeyboard/currentLine.js');
 const outCurrentCommandTitle = require('../lib/outCurrentCommandTitle/outCurrentCommandTitle');
 const { clearFile } = require('./responders/watch/functions/dataUtils/dataUtils');
 const {

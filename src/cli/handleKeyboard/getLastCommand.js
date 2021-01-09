@@ -1,9 +1,9 @@
 const {
     out,
     messageType
-} = require('../../../lib/coloredOut/out');
+} = require('../../lib/coloredOut/out');
 const { keyIterator, changeKeyIteratorOperation, changeKeyIterator } = require('./keyIterator');
-const { commandHistory } = require('../commandsHistory');
+const { commandHistory } = require('../commandHistory/commandsHistory');
 
 function getLastCommand() {
     if (commandHistory.size > 0) {
