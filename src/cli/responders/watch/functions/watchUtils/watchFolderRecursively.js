@@ -1,13 +1,13 @@
 const os = require('os');
 const fs = require('fs');
-const path = require('path');
+// const path = require('path');
 const { exec } = require('child_process');
 const { checkFileContent, checkFileContentType } = require('./checkFileType');
-const { currentFilesIdPath } = require('../../constants');
+const { applicationHistoryPath } = require('../../constants');
 
 function updateFsData(parameters) {
     const {
-        // callback,
+        callback,
         folderPath
     } = parameters;
 
@@ -39,12 +39,10 @@ function updateFsData(parameters) {
 }
 
 function watchFolderRecursively(parameters) {
-    const { callback } = parameters;
-    fs.watchFile(currentFilesIdPath, { encoding: 'utf8', persistent: true }, (current, prev) => {
+    fs.watchFile(applicationHistoryPath, { encoding: 'utf8', persistent: true }, (current, prev) => {
         const condition = current.size !== prev.size || current.atime !== current.atime;
         if (condition) {
             updateFsData(parameters);
-            callback;
         }
     });
 }

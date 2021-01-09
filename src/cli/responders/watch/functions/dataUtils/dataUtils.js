@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const {
     out,
     messageType
@@ -29,17 +30,18 @@ function writeFile(filePath, data) {
 function clearFile(filePath) {
     createFile(filePath);
     fs.truncate(
-        filePath, 
-        0, 
+        filePath,
+        0,
         error => {
-            if(error){
+            if (error) {
                 out(
                     error.message,
                     messageType.error
                 );
-            }else{
+            } else {
+                let filename = path.basename(filePath)
                 out(
-                    `File: ${filePath} was cleared!`,
+                    `File ${filename} was cleared!`,
                     messageType.info
                 )
             }

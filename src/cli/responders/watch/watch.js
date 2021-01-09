@@ -26,10 +26,23 @@ const setWatchFolder = require('./functions/watchFolder/setWatchFolder');
 
 let initialization = true;
 
+function preInitialization() {
+    if (initialization) {
+        clearFile(applicationModeConfigFilePath);
+        clearFile(currentFilesIdPath)
+        clearFile(previousFilesIdPath);
+        clearFile(applicationHistoryPath);
+        clearFile(watchFolderInfoPath);
+    }
+    initialization = false;
+}
+
 function watchResponder(line) {
     const splitedLine = line.split(' ');
 
     if (splitedLine) {
+        preInitialization();
+
         let folderPath = initializeWatchPath(splitedLine)
         let applicationMode = initializeApplicationMode(splitedLine);
 
@@ -66,22 +79,8 @@ function watchResponder(line) {
     }
 }
 
-
-
-function preInitialization() {
-    if (initialization) {
-        clearFile(applicationModeConfigFilePath);
-        clearFile(currentFilesIdPath)
-        clearFile(previousFilesIdPath);
-        clearFile(applicationHistoryPath);
-        clearFile(watchFolderInfoPath);
-    }
-    initialization = false;
-}
-
 function _platformCases(parameters) {
     let { folderPath, } = parameters;
-    preInitialization();
 
     switch (os.platform()) {
         case "linux": {
