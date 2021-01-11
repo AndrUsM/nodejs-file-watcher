@@ -1,4 +1,5 @@
 import templates from '../../utlis/templates.js';
+import path from 'path';
 
 const publicHandler = async (data, callback) => {
     if (data.method !== 'get') {
@@ -6,27 +7,30 @@ const publicHandler = async (data, callback) => {
         return
     }
     try {
-        let asset_name = data.trimmedPath.replace('public/images/', ''.trim())
-        let content_type, extension
+        let assetName = path.basename(data.trimmedPath) || data.trimmedPath;
+
+        let contentType, extension;
+
         switch (true) {
-            case asset_name.includes('.css'): {
-                content_type = 'css'
+            case assetName.includes('.css'): {
+                contentType = 'css'
                 extension = 'style'
                 break;
             }
-            case asset_name.includes('.js'):
-                content_type = 'js'
+            case assetName.includes('.js'):
+                contentType = 'js'
                 extension = 'js'
                 break;
             default:
-                content_type = 'plain'
+                contentType = 'plain'
                 extension = 'text'
                 break;
         }
-        let asset = await templates.getStaticAsset(asset_name, extension)
-        callback(200, asset, content_type)
+
+        const asset = templates.getStaticAsset(assetName, extension);
+        callback(200, asset, contentType);
     } catch (err) {
-        callback(404, null, 'html')
+        callback(404, JSON.stringify(err), 'html');
     }
 }
 

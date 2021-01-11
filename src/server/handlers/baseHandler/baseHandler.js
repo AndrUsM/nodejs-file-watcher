@@ -1,4 +1,5 @@
 import url from 'url';
+import fs from 'fs';
 import { StringDecoder } from 'string_decoder';
 import handler from '../handler.js';
 import router from '../../routes/router.js';
@@ -6,17 +7,17 @@ import handleContentType from './handleContentType.js';
 
 export const baseHandler = async (req, res) => {
     try {
-        let decoder = new StringDecoder('utf8');
-        let parsedUrl = url.parse(req.url, true);
-        let path = parsedUrl.pathname;
-        let trimmedPath = path.replace(/^\/+|\/+$/g, '');
-        let method = req.method.toLowerCase();
+        const decoder = new StringDecoder('utf8');
+        const parsedUrl = url.parse(req.url, true);
+        const path = parsedUrl.pathname;
+        const trimmedPath = path.replace(/^\/+|\/+$/g, '');
+        const method = req.method.toLowerCase();
 
         let buffer = '';
 
         req.on('data', data => {
             buffer += decoder.write(data);
-        })
+        });
 
         req.on('end', () => {
             buffer += decoder.end();

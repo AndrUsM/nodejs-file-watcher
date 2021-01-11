@@ -45,6 +45,7 @@ function handleContentType(parameters) {
             break;
         }
     }
+    
     response.setHeader('Content-Type', headerValue);
 }
 
