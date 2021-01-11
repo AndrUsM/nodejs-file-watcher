@@ -31,13 +31,15 @@ templates.getStaticAsset = (filename, extension) => {
     if (!filename) throw new Error('A valid static asset name was not specified');
 
     let assetsDir = '';
+    const publicFolder = path.join('src', 'public');
+
     switch (extension) {
-        case 'style':{
-            assetsDir = path.join('src', 'public', 'css');
+        case 'style': {
+            assetsDir = path.join(publicFolder, 'css');
             break;
         }
         case 'js': {
-            assetsDir = path.join('src', 'public', 'js');
+            assetsDir = path.join(publicFolder, 'js');
             break;
         }
         case 'plain':
