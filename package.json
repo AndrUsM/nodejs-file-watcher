@@ -1,0 +1,22 @@
+{
+  "name": "file-watcher",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "_Written using the node js platform_",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndrUsM/nodejs-file-watcher.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndrUsM/nodejs-file-watcher/issues"
+  },
+  "homepage": "https://github.com/AndrUsM/nodejs-file-watcher#readme"
+}
