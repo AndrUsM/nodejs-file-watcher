@@ -25,7 +25,7 @@ function generateReport(items) {
             `current: ${formatSize(current.size)}`,
             `previous: ${formatSize(previous.size)}`,
             `changes: ${formatSize(current.size - previous.size)}`
-        ].join('\n'),
+        ].join('; '),
         type: getFileType(current),
         path: filePath,
         accessTime: formatTime(atime),

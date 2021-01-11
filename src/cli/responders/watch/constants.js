@@ -4,6 +4,8 @@ const baseDataPath = path.join(__dirname, 'data');
 const currentFilesIdPath = path.resolve(baseDataPath, '.currentFilesID.dat');
 const previousFilesIdPath = path.resolve(baseDataPath, '.previousFilesID.dat');
 
+const watchFolderInfoPath = path.resolve(baseDataPath, '.watchFolder.dat');
+
 const applicationHistoryPath = path.resolve(baseDataPath, '.history.dat');
 
 const applicationModeConfigFilePath = path.resolve(baseDataPath, '.mode.dat');
@@ -25,6 +27,8 @@ module.exports = {
     applicationConsoleMode: applicationConsoleMode,
     applicationDefaultMode: applicationDefaultMode,
     applicationModeList: applicationModeList,
+
+    watchFolderInfoPath: watchFolderInfoPath,
 
     applicationModeConfigFilePath: applicationModeConfigFilePath
 }

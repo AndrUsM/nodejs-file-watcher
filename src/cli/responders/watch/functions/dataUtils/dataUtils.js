@@ -1,7 +1,8 @@
 const fs = require('fs');
-const { 
-    out, 
-    messageType 
+const path = require('path');
+const {
+    out,
+    messageType
 } = require('../../../../../lib/coloredOut/out');
 
 function createFile(filePath) {
@@ -28,7 +29,24 @@ function writeFile(filePath, data) {
 
 function clearFile(filePath) {
     createFile(filePath);
-    fs.writeFileSync(filePath, '');
+    fs.truncate(
+        filePath,
+        0,
+        error => {
+            if (error) {
+                out(
+                    error.message,
+                    messageType.error
+                );
+            } else {
+                let filename = path.basename(filePath)
+                out(
+                    `File ${filename} was cleared!`,
+                    messageType.info
+                )
+            }
+        }
+    );
 }
 
 function appendFile(filePath, data) {

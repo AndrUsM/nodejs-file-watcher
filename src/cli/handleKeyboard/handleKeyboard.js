@@ -1,5 +1,5 @@
-const clearResponder = require('../../responders/clear');
-const exitResponder = require('../../responders/exit');
+const clearResponder = require('../responders/clear');
+const exitResponder = require('../responders/exit');
 const {
     leftArrowKeyAction,
     rightArrowKeyAction,

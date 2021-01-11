@@ -8,15 +8,27 @@ const baseHandler = require('./handlers/baseHandler/baseHandler');
 
 const port = process.env.PORT || 3000;
 const hostname = process.env.HOSTNAME || 'localhost';
+const server = http.createServer(baseHandler);
+
+function onExit() {
+    process.on('exit', function (code) {
+        server.close();
+        cli.clearConfigData();
+        out(
+            `The application was closed with code ${code}.`,
+            messageType.info
+        )
+    });
+}
 
 function createServer() {
-    http.createServer(baseHandler)
-        .listen(port, hostname, () => {
-            out(
-                `Server runned on http://${hostname}:${port}`,
-                messageType.info
-            );
-        })
+    server.listen(port, hostname, () => {
+        out(
+            `Server runned on http://${hostname}:${port}`,
+            messageType.info
+        );
+    });
+    onExit();
 }
 
 function runServer() {

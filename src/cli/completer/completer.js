@@ -18,31 +18,48 @@ function completer(line) {
     const isFound = hits.length;
     const matches = [isFound ? hits : commandList, line];
     const title = isFound ? 'Matched commands' : 'Commands list';
+    const formattedData = matches[0].join(',');
+
+    const message = generateMessage({
+        title: title,
+        data: formattedData
+    });
+
+    const outMessage = execute(message);
+    outMessage;
+    return matches;
+}
+
+function generateMessage(parameters) {
+    const {
+        title,
+        data
+    } = parameters;
 
     const message = {
         title: title,
-        data: matches[0].join(',')
-    }
-    const outMessage = () => {
-        const messageString = [
-            '',
-            [
-                generateColoredString({
-                    data: message.title,
-                    type: messageType.error
-                }),
-                generateColoredString({
-                    data: message.data,
-                    type: messageType.warning
-                })
-            ].join(':')
-        ].join('\n');
-        execute(messageString);
+        data: data
     }
 
-    outMessage();
-    // out(message.data, messageType.warning);
-    return matches;
+    const coloredMessageArray = [
+        generateColoredString({
+            data: message.title,
+            type: messageType.error
+        }),
+        generateColoredString({
+            data: message.data,
+            type: messageType.warning
+        })
+    ];
+
+    const coloreMessage = coloredMessageArray.join(':');
+
+    const messageString = [
+        '',
+        coloreMessage
+    ].join('\n');
+
+    return messageString;
 }
 
 module.exports = completer;

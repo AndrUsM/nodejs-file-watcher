@@ -2,7 +2,7 @@ const Readline = require('readline');
 const commands = require('./commandList');
 const emmiter = require('./emmiters');
 const completer = require('./completer/completer');
-const handleKeyboard = require('./commandHistory/handleKeyboard/handleKeyboard');
+const handleKeyboard = require('./handleKeyboard/handleKeyboard');
 const { saveToCommandsHistory } = require('./commandHistory/commandsHistory');
 const {
     out,
@@ -11,8 +11,16 @@ const {
 const {
     appendCurrentLine,
     removeLastItemOfCurrentLine
-} = require('./commandHistory/handleKeyboard/currentLine.js');
+} = require('./handleKeyboard/currentLine.js');
 const outCurrentCommandTitle = require('../lib/outCurrentCommandTitle/outCurrentCommandTitle');
+const { clearFile } = require('./responders/watch/functions/dataUtils/dataUtils');
+const {
+    applicationHistoryPath,
+    applicationModeConfigFilePath,
+    watchFolderInfoPath,
+    currentFilesIdPath,
+    previousFilesIdPath
+} = require('./responders/watch/constants');
 
 const cli = {};
 
@@ -24,20 +32,28 @@ const readline = Readline.createInterface({
     input: process.stdin,
     out: process.stdout,
     terminal: true,
-    completer: completer
+    completer: completer,
 });
 
 cli.saveCurrentLine = () => {
-    const ignoreKeyList = [127]; // backspace
+    const ignoreKeyList = [127]; // backspace key
     process.stdin.on('data', (data) => {
         const asciiKey = +data.codePointAt(0).toString(10);
         const isServiceButtons = ignoreKeyList.find(item => item === asciiKey);
-        const checkSymbols = asciiKey > 32 && !isServiceButtons;
+        const checkSymbols = asciiKey > 31 && !isServiceButtons; // 32 is a space key
         if (checkSymbols)
             appendCurrentLine(data.toString());
         if (asciiKey === 127)
             removeLastItemOfCurrentLine();
     });
+}
+
+cli.clearConfigData = () => {
+    clearFile(applicationHistoryPath);
+    clearFile(applicationModeConfigFilePath);
+    clearFile(watchFolderInfoPath);
+    clearFile(currentFilesIdPath);
+    clearFile(previousFilesIdPath);
 }
 
 cli.initialize = () => {
