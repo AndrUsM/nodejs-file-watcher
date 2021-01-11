@@ -1,8 +1,8 @@
-const commands = require("../commandList");
+import { commands } from '../commandList';
 
-let commandHistory = new Map();
+export let commandHistory = new Map();
 
-function saveToCommandsHistory(parameters) {
+export function saveToCommandsHistory(parameters) {
     const {
         command,
         line,
@@ -14,8 +14,3 @@ function saveToCommandsHistory(parameters) {
         );
     }
 }
-
-module.exports = {
-    saveToCommandsHistory: saveToCommandsHistory,
-    commandHistory: commandHistory
-};

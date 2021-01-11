@@ -1,13 +1,14 @@
-
-const generateColoredString = require('../../lib/coloredOut/generateColoredString');
-const {
+import {
     out,
-    execute,
+    execute
+} from '../../lib/coloredOut/out.js';
+import {
     messageType
-} = require('../../lib/coloredOut/out');
-const commands = require('../commandList');
+} from '../../lib/coloredOut/messageType.js';
+import { commands } from '../commandList.js';
+import { generateColoredString } from '../../lib/coloredOut/generateColoredString.js';
 
-function completer(line) {
+export function completer(line) {
     console.clear();
     out(`Entered command: ${line}`, messageType.warning);
 
@@ -61,5 +62,3 @@ function generateMessage(parameters) {
 
     return messageString;
 }
-
-module.exports = completer;
