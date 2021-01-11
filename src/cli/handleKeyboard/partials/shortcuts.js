@@ -1,19 +1,14 @@
-const readline = require('readline');
-const { stdout } = require('process');
-const { getCurrentLine } = require('../currentLine');
+import readline from 'readline';
+import { stdout } from 'process';
+import { getCurrentLine } from '../currentLine.js';
 
-function toStartLine() {
+export function toStartLine() {
     // ctrl + a
     stdout.write("\r");
 }
 
-function toEndLine() {
+export function toEndLine() {
     // ctrl + e
     const currentLineLength = getCurrentLine().length;
     readline.cursorTo(stdout, currentLineLength + 1);
-}
-
-module.exports = {
-    toStartLine,
-    toEndLine
 }

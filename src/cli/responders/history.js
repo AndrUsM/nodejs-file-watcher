@@ -1,11 +1,7 @@
-const {
-    out,
-    messageType
-} = require("../../lib/coloredOut/out");
-const { commandHistory } = require("../commandHistory/commandsHistory");
+import { out } from '../../lib/coloredOut/out.js';
+import { messageType } from '../../lib/coloredOut/messageType.js';
+import { commandHistory } from '../commandHistory/commandsHistory.js';
 
-function historyResponder() {
+export function historyResponder() {
     out(commandHistory, messageType.default)
 }
-
-module.exports = historyResponder;

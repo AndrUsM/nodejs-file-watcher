@@ -1,5 +1,3 @@
-function clearResponder() {
+export function clearResponder() {
     console.clear();
 }
-
-module.exports = clearResponder;

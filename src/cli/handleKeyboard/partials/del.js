@@ -1,20 +1,10 @@
-const readline = require('readline');
-const {
-    stdout,
-    stdin
-} = require('process');
-const {
-    getCurrentLine,
-    clearCurrentLine
-} = require('../currentLine');
-const { timeStamp } = require('console');
-const {
-    out,
-    messageType
-} = require('../../../lib/coloredOut/out');
+import { stdout } from 'process';
+import { clearCurrentLine } from '../currentLine.js';
+import { out } from '../../../lib/coloredOut/out.js';
+import { messageType } from '../../../lib/coloredOut/messageType.js';
 
 // BUG: stdin line not cleared properly, its will hide
-function deleteKeyAction() {
+export function deleteKeyAction() {
     clearCurrentLine();
     stdout.clearLine();
     stdout.cursorTo(0);
@@ -24,5 +14,3 @@ function deleteKeyAction() {
         messageType.info
     );
 }
-
-module.exports = deleteKeyAction;

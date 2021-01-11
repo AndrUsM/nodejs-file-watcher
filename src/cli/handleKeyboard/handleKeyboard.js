@@ -1,19 +1,21 @@
-const clearResponder = require('../responders/clear');
-const exitResponder = require('../responders/exit');
-const {
+import { clearResponder } from '../responders/clear.js';
+import { exitResponder } from '../responders/exit.js';
+import { historyResponder } from '../responders/history.js';
+import {
     leftArrowKeyAction,
     rightArrowKeyAction,
     upArrowKeyAction
-} = require('./partials/arrows');
-const {
+} from './partials/arrows.js';
+import {
     toStartLine,
     toEndLine
-} = require('./partials/shortcuts');
-const backspaceKeyAction = require('./partials/backspace');
-const delKeyAction = require('./partials/del');
-const { clearCurrentLine } = require('./currentLine');
+} from './partials/shortcuts.js';
+import { backspaceKeyAction } from './partials/backspace.js';
+import { backspaceKeyAction } from './partials/backspace.js';
+import { deleteKeyAction } from './partials/del.js';
+import { clearCurrentLine } from './currentLine.js';
 
-function handleKeyboard() {
+export function handleKeyboard() {
     let {
         stdin,
         stdout
@@ -47,7 +49,7 @@ function handleKeyboard() {
             }
             case '\u001B\u005B\u0033\u007E': {
                 // delete
-                delKeyAction();
+                deleteKeyAction();
                 break;
             }
             case '\u0005': {
@@ -67,6 +69,7 @@ function handleKeyboard() {
             }
             case '\u001B\u005B\u0042': {
                 // down
+                historyResponder();
                 break;
             }
             case '\u001B\u005B\u0043': {
@@ -98,7 +101,7 @@ function handleKeyboard() {
     });
 }
 
-function toUnicode(theString) {
+export function toUnicode(theString) {
     let unicodeString = '';
     for (var i = 0; i < theString.length; i++) {
         let theUnicode = theString
@@ -113,5 +116,3 @@ function toUnicode(theString) {
     }
     return unicodeString;
 }
-
-module.exports = handleKeyboard;

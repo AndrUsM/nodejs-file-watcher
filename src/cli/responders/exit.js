@@ -1,11 +1,7 @@
-const {
-    out,
-    messageType
-} = require("../../lib/coloredOut/out");
+import { out } from '../../lib/coloredOut/out.js';
+import { messageType } from '../../lib/coloredOut/messageType.js';
 
-function exitResponder() {
+export function exitResponder() {
     out('Buy!', messageType.info);
     process.exit(1);
 }
-
-module.exports = exitResponder;

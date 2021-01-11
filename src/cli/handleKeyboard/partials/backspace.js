@@ -1,12 +1,11 @@
-const readline = require('readline');
-const { stdout, stdin } = require('process');
-const { getCurrentLine } = require('../currentLine');
+import readline from 'readline';
+import { stdout, stdin } from 'process';
+import { getCurrentLine } from '../currentLine.js';
 
-function backspaceKeyAction() {
+export function backspaceKeyAction() {
     readline.cursorTo(stdout, 0);
     readline.clearLine(stdout);
 
     stdin.write(getCurrentLine());
 }
 
-module.exports = backspaceKeyAction;

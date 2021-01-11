@@ -4,7 +4,7 @@ const {
 } = require('../../lib/coloredOut/out');
 const { commandHistory } = require('../commandHistory/commandsHistory');
 
-function getLastCommand() {
+export function getLastCommand() {
     if (commandHistory.size > 0) {
         const commandsArray = Array.from(commandHistory.values());
         const _index = commandsArray.length - 1;
@@ -14,5 +14,3 @@ function getLastCommand() {
         out('Command history is empty!', messageType.warning);
     }
 }
-
-module.exports = getLastCommand;

@@ -1,24 +1,18 @@
-const getLastCommand = require('../getLastCommand');
-var readline = require('readline');
+import { getLastCommand } from '../getLastCommand.js';
+import readline from 'readline';
+import { stdout } from 'process';
 
-const { stdout } = process;
-
-function upArrowKeyAction() {
+export function upArrowKeyAction() {
     console.clear();
     let lastCommand = getLastCommand();
     if (lastCommand)
         process.stdout.write(lastCommand);
 }
 
-function leftArrowKeyAction() {
+export function leftArrowKeyAction() {
     readline.moveCursor(stdout, -1, 0);
 }
-function rightArrowKeyAction() {
+
+export function rightArrowKeyAction() {
     readline.moveCursor(stdout, 1, 0);
 }
-
-module.exports = {
-    upArrowKeyAction,
-    leftArrowKeyAction,
-    rightArrowKeyAction
-};

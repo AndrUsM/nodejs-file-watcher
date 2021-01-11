@@ -1,16 +1,15 @@
-let currentLine = new Map();
+export let currentLine = new Map();
 
-function appendCurrentLine(line) {
+export function appendCurrentLine(line) {
     line = typeof line === 'string' ? line : line.toString();
     currentLine.set(+new Date(), line);
 }
 
-function clearCurrentLine() {
+export function clearCurrentLine() {
     currentLine.clear();
 }
 
-// oparation: -1, 1
-function removeLastItemOfCurrentLine() {
+export function removeLastItemOfCurrentLine() {
     const _size = currentLine.size;
     if (_size) {
         let keyToRemove = Array.from(currentLine.keys())[_size - 1];
@@ -19,16 +18,8 @@ function removeLastItemOfCurrentLine() {
         return false;
 }
 
-function getCurrentLine() {
+export function getCurrentLine() {
     return Array.from(
         currentLine.values()
     ).join("");
 }
-
-module.exports = {
-    currentLine,
-    appendCurrentLine,
-    clearCurrentLine,
-    removeLastItemOfCurrentLine,
-    getCurrentLine
-};
