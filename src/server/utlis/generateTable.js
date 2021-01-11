@@ -51,4 +51,4 @@ table.generateTable = (data) => {
     return tableStr.trim();
 }
 
-module.exports = table;
+export default table;

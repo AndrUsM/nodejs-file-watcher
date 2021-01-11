@@ -1,26 +1,24 @@
-const Readline = require('readline');
-const commands = require('./commandList');
-const emmiter = require('./emmiters');
-const completer = require('./completer/completer');
-const handleKeyboard = require('./handleKeyboard/handleKeyboard');
-const { saveToCommandsHistory } = require('./commandHistory/commandsHistory');
-const {
-    out,
-    messageType
-} = require('../lib/coloredOut/out');
-const {
+import Readline from 'readline';
+import {commands} from './commandList.js';
+import emmiter from './emmiters.js';
+import {completer} from './completer/completer.js';
+import {handleKeyboard} from './handleKeyboard/handleKeyboard.js';
+import { saveToCommandsHistory } from './commandHistory/commandsHistory.js';
+import { out } from '../lib/coloredOut/out.js';
+import { messageType } from '../lib/coloredOut/messageType.js';
+import {
     appendCurrentLine,
     removeLastItemOfCurrentLine
-} = require('./handleKeyboard/currentLine.js');
-const outCurrentCommandTitle = require('../lib/outCurrentCommandTitle/outCurrentCommandTitle');
-const { clearFile } = require('./responders/watch/functions/dataUtils/dataUtils');
-const {
+} from './handleKeyboard/currentLine.js';
+import {outCurrentCommandTitle} from '../lib/outCurrentCommandTitle/outCurrentCommandTitle.js';
+import { clearFile } from './responders/watch/functions/dataUtils/dataUtils.js';
+import {
     applicationHistoryPath,
     applicationModeConfigFilePath,
     watchFolderInfoPath,
     currentFilesIdPath,
     previousFilesIdPath
-} = require('./responders/watch/constants');
+} from './responders/watch/constants.js';
 
 const cli = {};
 
@@ -41,10 +39,13 @@ cli.saveCurrentLine = () => {
         const asciiKey = +data.codePointAt(0).toString(10);
         const isServiceButtons = ignoreKeyList.find(item => item === asciiKey);
         const checkSymbols = asciiKey > 31 && !isServiceButtons; // 32 is a space key
-        if (checkSymbols)
+        if (checkSymbols) {
             appendCurrentLine(data.toString());
-        if (asciiKey === 127)
+        }
+
+        if (asciiKey === 127) {
             removeLastItemOfCurrentLine();
+        }
     });
 }
 
@@ -88,4 +89,4 @@ cli.initialize = () => {
     });
 }
 
-module.exports = cli;
+export default cli;

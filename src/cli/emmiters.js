@@ -1,10 +1,9 @@
-const EventEmmiter = require('events');
-const commands = require('./commandList');
-
-const clearResponder = require('./responders/clear');
-const watchResponder = require('./responders/watch/watch');
-const exitResponder = require('./responders/exit');
-const historyResponder = require('./responders/history');
+import { commands } from './commandList.js';
+import EventEmmiter from 'events';
+import { clearResponder } from './responders/clear.js'
+import { exitResponder } from './responders/exit.js';
+import {watchResponder} from './responders/watch/watch.js';
+import {historyResponder} from './responders/history.js'; 
 
 const emmiter = new EventEmmiter();
 
@@ -24,4 +23,4 @@ emmiter.on(commands.history, _ => {
     historyResponder();
 })
 
-module.exports = emmiter;
+export default emmiter;

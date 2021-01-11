@@ -1,11 +1,11 @@
-const notFoundHandler = require('./partials/notFound');
-const indexPageHandler = require('./partials/index');
-const publicHandler = require('./partials/public');
+import indexPage from "./partials/index.js";
+import notFound from "./partials/notFound.js";
+import publicHandler from "./partials/public.js";
 
 const handler = {};
 
-handler.notFound = notFoundHandler;
-handler.index = indexPageHandler;
+handler.notFound = notFound;
+handler.index = indexPage;
 handler.public = publicHandler;
 
-module.exports = handler;
+export default handler;

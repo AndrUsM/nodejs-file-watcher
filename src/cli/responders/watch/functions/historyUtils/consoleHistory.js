@@ -1,5 +1,5 @@
 import { getHistory } from './getHistory.js';
-import { handleApplicationMode } from '../mode/handleApplicationMode';
+import { handleApplicationMode } from '../mode/handleApplicationMode.js';
 import { out } from '../../../../../lib/coloredOut/out.js'
 import { messageType } from '../../../../../lib/coloredOut/messageType.js'
 

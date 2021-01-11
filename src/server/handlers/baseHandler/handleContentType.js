@@ -48,4 +48,4 @@ function handleContentType(parameters) {
     response.setHeader('Content-Type', headerValue);
 }
 
-module.exports = handleContentType;
+export default handleContentType;

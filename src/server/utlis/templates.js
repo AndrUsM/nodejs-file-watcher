@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const templates = {};
 
@@ -45,4 +45,4 @@ templates.getStaticAsset = (filename, extension) => {
     return data
 }
 
-module.exports = templates;
+export default templates;

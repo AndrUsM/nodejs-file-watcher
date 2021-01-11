@@ -1,4 +1,4 @@
-import { commands } from '../commandList';
+import { commands } from '../commandList.js';
 
 export let commandHistory = new Map();
 

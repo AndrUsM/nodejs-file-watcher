@@ -1,9 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-const saveToHistory = require('../functions/historyUtils/saveToHistory');
-const eventEmmiter = require('../functions/events/events');
+import fs from 'fs';
+import path from 'path';
+import { saveToHistory } from '../functions/historyUtils/saveToHistory.js';
+import { eventEmmiter } from '../functions/events/events.js'
 
-function defaultWatchFolder(folderPath) {
+export function defaultWatchFolder(folderPath) {
     return fs.watch(folderPath, { recursive: true }, (event, filename) => {
         const filePath = path.join(folderPath, filename);
         saveToHistory({
@@ -13,5 +13,3 @@ function defaultWatchFolder(folderPath) {
         });
     });
 }
-
-module.exports = defaultWatchFolder;

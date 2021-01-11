@@ -1,3 +1,3 @@
-const runServer = require('./src/server/server');
+import { runServer } from './src/server/server.js';
 
 runServer();

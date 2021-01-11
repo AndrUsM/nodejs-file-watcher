@@ -1,9 +1,13 @@
-const fs = require('fs');
-const helpers = require('../../utlis/templates');
-const tableUtils = require('../../utlis/generateTable');
-const getHistory = require('../../../cli/responders/watch/functions/historyUtils/getHistory');
-const { applicationHistoryPath, applicationBrowserMode, applicationDefaultMode } = require('../../../cli/responders/watch/constants');
-const getApplicationMode = require('../../../cli/responders/watch/functions/mode/getApplicationMode');
+import fs from 'fs';
+import templates from '../../utlis/templates.js';
+import tableUtils from '../../utlis/generateTable.js';
+import { getHistory } from '../../../cli/responders/watch/functions/historyUtils/getHistory.js';
+import {
+    applicationHistoryPath,
+    applicationBrowserMode,
+    applicationDefaultMode
+} from '../../../cli/responders/watch/constants.js';
+import { getApplicationMode } from '../../../cli/responders/watch/functions/mode/getApplicationMode.js';
 
 const indexPage = async (data, callback) => {
     switch (getApplicationMode()) {
@@ -29,8 +33,8 @@ const browserModeCallback = async (data, callback) => {
         history: tableUtils.generateTable(_history)
     };
 
-    let template = await helpers.getTemplate('index');
-    template = helpers.interpolate(template, interpolateData);
+    let template = await templates.getTemplate('index');
+    template = templates.interpolate(template, interpolateData);
 
     const isExist = fs.existsSync(applicationHistoryPath);
 
@@ -41,4 +45,4 @@ const browserModeCallback = async (data, callback) => {
     }
 }
 
-module.exports = indexPage;
+export default indexPage;

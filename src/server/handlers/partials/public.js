@@ -1,4 +1,4 @@
-const helpers = require('../../utlis/templates');
+import templates from '../../utlis/templates.js';
 
 const publicHandler = async (data, callback) => {
     if (data.method !== 'get') {
@@ -23,11 +23,11 @@ const publicHandler = async (data, callback) => {
                 extension = 'text'
                 break;
         }
-        let asset = await helpers.getStaticAsset(asset_name, extension)
+        let asset = await templates.getStaticAsset(asset_name, extension)
         callback(200, asset, content_type)
     } catch (err) {
         callback(404, null, 'html')
     }
 }
 
-module.exports = publicHandler;
+export default publicHandler;

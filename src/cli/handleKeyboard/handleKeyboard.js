@@ -11,7 +11,6 @@ import {
     toEndLine
 } from './partials/shortcuts.js';
 import { backspaceKeyAction } from './partials/backspace.js';
-import { backspaceKeyAction } from './partials/backspace.js';
 import { deleteKeyAction } from './partials/del.js';
 import { clearCurrentLine } from './currentLine.js';
 

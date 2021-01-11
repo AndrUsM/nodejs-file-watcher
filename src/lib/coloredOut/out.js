@@ -3,7 +3,7 @@ import { isNullOrUndefined } from '../checkTypes/isNullOrUndefined.js';
 import { messageType } from './messageType.js';
 
 export function out(data, type) {
-    returnData = typeof returnData === 'boolean' ? returnData : false;
+    // let returnData = typeof returnData === 'boolean' ? returnData : false;
 
     let coloredMessage = generateColoredString({
         data: data,

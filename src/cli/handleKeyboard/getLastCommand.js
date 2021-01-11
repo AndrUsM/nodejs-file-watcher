@@ -1,6 +1,6 @@
-import { messageType } from "../../lib/coloredOut/messageType";
-import { out } from "../../lib/coloredOut/out";
-import { commandHistory } from "../commandHistory/commandsHistory";
+import { messageType } from "../../lib/coloredOut/messageType.js";
+import { out } from "../../lib/coloredOut/out.js";
+import { commandHistory } from "../commandHistory/commandsHistory.js";
 
 export function getLastCommand() {
     if (commandHistory.size > 0) {

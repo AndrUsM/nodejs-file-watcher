@@ -1,10 +1,16 @@
-const http = require('http');
-const {
-    out,
-    messageType
-} = require('../lib/coloredOut/out');
-const cli = require('../cli/index');
-const baseHandler = require('./handlers/baseHandler/baseHandler');
+// const http = require('http');
+// const {
+//     out,
+//     messageType
+// } = require('../lib/coloredOut/out');
+// const cli = require('../cli/index');
+// const baseHandler = require('./handlers/baseHandler/baseHandler');
+
+import http from 'http';
+import { out } from '../lib/coloredOut/out.js';
+import { messageType } from '../lib/coloredOut/messageType.js';
+import cli from '../cli/index.js';
+import { baseHandler } from './handlers/baseHandler/baseHandler.js';
 
 const port = process.env.PORT || 3000;
 const hostname = process.env.HOSTNAME || 'localhost';
@@ -31,9 +37,7 @@ function createServer() {
     onExit();
 }
 
-function runServer() {
+export function runServer() {
     createServer();
     cli.initialize();
 }
-
-module.exports = runServer;

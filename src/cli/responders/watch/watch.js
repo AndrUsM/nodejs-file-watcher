@@ -1,7 +1,7 @@
-const os = require('os');
-const { clearFile } = require('./functions/dataUtils/dataUtils');
+import { platform } from 'os';
+import { clearFile } from './functions/dataUtils/dataUtils.js';
 
-const {
+import {
     currentFilesIdPath,
     previousFilesIdPath,
     applicationHistoryPath,
@@ -9,20 +9,18 @@ const {
     applicationDefaultMode,
     applicationBrowserMode,
     applicationConsoleMode,
-    watchFolderInfoPath,
-} = require('./constants');
-const defaultWatchFolder = require('./useCases/defaultWatchFolder');
-const { watchFolderLinux } = require('./useCases/watchFolderLinux');
-const setApplicationMode = require('./functions/mode/setApplicationMode');
-const {
+    watchFolderInfoPath
+} from './constants.js';
+import { defaultWatchFolder } from './useCases/defaultWatchFolder.js';
+import { watchFolderLinux } from './useCases/watchFolderLinux.js';
+import { setApplicationMode } from './functions/mode/setApplicationMode.js';
+import {
     initializeApplicationMode,
     initializeWatchPath
-} = require('./functions/watchUtils/initializeInputParameters.js');
-const {
-    out,
-    messageType
-} = require('../../../lib/coloredOut/out');
-const setWatchFolder = require('./functions/watchFolder/setWatchFolder');
+} from './functions/watchUtils/initializeInputParameters.js';
+import { out } from '../../../lib/coloredOut/out.js';
+import { messageType } from '../../../lib/coloredOut/messageType.js';
+import { setWatchFolder } from './functions/watchFolder/setWatchFolder.js';
 
 let initialization = true;
 
@@ -37,7 +35,7 @@ function preInitialization() {
     initialization = false;
 }
 
-function watchResponder(line) {
+export function watchResponder(line) {
     const splitedLine = line.split(' ');
 
     if (splitedLine) {
@@ -80,9 +78,9 @@ function watchResponder(line) {
 }
 
 function _platformCases(parameters) {
-    let { folderPath, } = parameters;
+    let { folderPath } = parameters;
 
-    switch (os.platform()) {
+    switch (platform()) {
         case "linux": {
             watchFolderLinux({
                 folderPath: folderPath,
@@ -98,5 +96,3 @@ function _platformCases(parameters) {
         }
     }
 }
-
-module.exports = watchResponder;

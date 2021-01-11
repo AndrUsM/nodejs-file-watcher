@@ -1,10 +1,10 @@
-const url = require('url');
-const { StringDecoder } = require('string_decoder');
-const handler = require('../handler');
-const router = require('../../routes/router');
-const handleContentType = require('./handleContentType');
+import url from 'url';
+import { StringDecoder } from 'string_decoder';
+import handler from '../handler.js';
+import router from '../../routes/router.js';
+import handleContentType from './handleContentType.js';
 
-const baseHandler = async (req, res) => {
+export const baseHandler = async (req, res) => {
     try {
         let decoder = new StringDecoder('utf8');
         let parsedUrl = url.parse(req.url, true);
@@ -46,7 +46,7 @@ const baseHandler = async (req, res) => {
                     payload: payload,
                     response: res
                 });
-                
+
                 res.writeHead(statusCode);
                 res.end(payload);
             })
@@ -58,7 +58,3 @@ const baseHandler = async (req, res) => {
         res.end(error);
     }
 }
-
-
-
-module.exports = baseHandler;

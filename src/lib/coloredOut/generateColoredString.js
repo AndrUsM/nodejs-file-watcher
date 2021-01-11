@@ -1,4 +1,3 @@
-import { generateColoredString } from './generateColoredString.js';
 import { consoleColors } from './colors.js';
 import { messageType } from './messageType.js';
 

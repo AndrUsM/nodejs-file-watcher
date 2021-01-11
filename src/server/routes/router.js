@@ -1,6 +1,7 @@
-const handler = require('../handlers/handler');
+import handler from '../handlers/handler.js';
 
 const routers = {
     '': handler.index
 }
-module.exports = routers
+
+export default routers;

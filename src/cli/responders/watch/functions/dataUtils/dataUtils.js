@@ -5,7 +5,7 @@ import { messageType } from '../../../../../lib/coloredOut/messageType.js';
 
 export function createFile(filePath) {
     if (!fs.existsSync(filePath)) {
-        writeFileSync(
+        fs.writeFileSync(
             filePath,
             '',
             { encoding: 'utf8' }
@@ -59,8 +59,8 @@ export function appendFile(filePath, data) {
 }
 
 export function readFile(filePath) {
-    if (existsSync(filePath)) {
-        const data = readFileSync(filePath, { encoding: 'utf8' });
+    if (fs.existsSync(filePath)) {
+        const data = fs.readFileSync(filePath, { encoding: 'utf8' });
         if (data && data.length) {
             return data.toString();
         } else {
@@ -70,9 +70,3 @@ export function readFile(filePath) {
         return '';
     }
 }
-
-// export const appendFile = appendFile;
-// export const clearFile = clearFile;
-// export const createFile = createFile;
-// export const readFile = readFile;
-// export const writeFile = writeFile;
