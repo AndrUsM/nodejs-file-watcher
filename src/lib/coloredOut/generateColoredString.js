@@ -1,7 +1,7 @@
-const consoleColors = require('./colors');
-const messageType = require('./messageType');
+import { consoleColors } from './colors';
+import { messageType } from './messageType';
 
-function generateColoredString(options) {
+export function generateColoredString(options) {
     const {
         data,
         type,
@@ -48,5 +48,3 @@ function generateColoredString(options) {
 
     return coloredMessage;
 }
-
-module.exports = generateColoredString;

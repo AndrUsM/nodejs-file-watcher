@@ -1,9 +1,6 @@
-const {
-    out,
-    messageType
-} = require("../coloredOut/out");
+import { out, messageType } from "../coloredOut/out";
 
-function outCurrentCommandTitle(parameters) {
+export function outCurrentCommandTitle(parameters) {
     const {
         command,
         line
@@ -21,5 +18,3 @@ function outCurrentCommandTitle(parameters) {
 
     out(message, messageType.info);
 }
-
-module.exports = outCurrentCommandTitle;

@@ -1,4 +1,4 @@
-const messageType = {
+export const messageType = {
     "error": "error",
     "info": "info",
     "warning": "warning",
@@ -6,5 +6,3 @@ const messageType = {
     "hidden": "hidden",
     "underscore": "underscore"
 }
-
-module.exports = messageType;

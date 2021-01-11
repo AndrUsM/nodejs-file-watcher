@@ -1,4 +1,4 @@
-const consoleColors = {
+export const consoleColors = {
     default: "\x1b[0m",
     bright: "\x1b[1m",
     dim: "\x1b[2m",
@@ -25,5 +25,3 @@ const consoleColors = {
     bgCyan: "\x1b[46m",
     bgWhite: "\x1b[47m",
 }
-
-module.exports = consoleColors;
