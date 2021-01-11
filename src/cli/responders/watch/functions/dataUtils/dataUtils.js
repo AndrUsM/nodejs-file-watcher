@@ -8,7 +8,9 @@ export function createFile(filePath) {
         fs.writeFileSync(
             filePath,
             '',
-            { encoding: 'utf8' }
+            {
+                encoding: 'utf8'
+            }
         );
     }
 }
@@ -22,7 +24,7 @@ export function writeFile(filePath, data) {
                 messageType.error
             );
         return true;
-    })
+    });
 }
 
 export function clearFile(filePath) {
@@ -41,7 +43,7 @@ export function clearFile(filePath) {
                 out(
                     `File ${filename} was cleared!`,
                     messageType.info
-                )
+                );
             }
         }
     );
@@ -50,12 +52,13 @@ export function clearFile(filePath) {
 export function appendFile(filePath, data) {
     createFile(filePath);
     fs.appendFile(filePath, data, { encoding: 'utf8' }, (err) => {
-        if (err)
+        if (err){
             out(
                 err.message,
                 messageType.error
             );
-    })
+        }
+    });
 }
 
 export function readFile(filePath) {

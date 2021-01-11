@@ -28,6 +28,7 @@ export function completer(line) {
 
     const outMessage = execute(message);
     outMessage;
+
     return matches;
 }
 

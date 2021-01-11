@@ -35,5 +35,5 @@ export function uploadFilesData(parameters) {
                 watchFile(item);
             }
         });
-    })
+    });
 }

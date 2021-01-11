@@ -4,7 +4,7 @@ import {
     checkFileContent,
     checkFileContentType
 } from './checkFileType.js';
-import { applicationHistoryPath } from '../../constants.js'
+import { applicationHistoryPath } from '../../constants.js';
 
 function updateFsData(parameters) {
     const {
@@ -18,7 +18,7 @@ function updateFsData(parameters) {
 
     getFoldersProcess.stdout.on('data', chunk => {
         if (checkFileContent(folderPath, checkFileContentType.directory)) {
-            folders.push(chunk)
+            folders.push(chunk);
         }
     });
 
@@ -35,8 +35,8 @@ function updateFsData(parameters) {
             fs.watch(folder).on('change', (eventType, filename) => {
                 callback;
             });
-        })
-    })
+        });
+    });
 }
 
 export function watchFolderRecursively(parameters) {
