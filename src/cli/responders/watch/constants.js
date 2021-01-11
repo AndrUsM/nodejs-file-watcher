@@ -1,6 +1,7 @@
 import path from 'path';
 
-export const baseDataPath = path.join(__dirname, 'data');
+export const baseDataPath = path.join('src', 'cli', 'responders', 'watch', 'data');;
+
 export const currentFilesIdPath = path.resolve(baseDataPath, '.currentFilesID.dat');
 export const previousFilesIdPath = path.resolve(baseDataPath, '.previousFilesID.dat');
 
