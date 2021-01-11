@@ -1,11 +1,13 @@
-const consoleColors = require('./colors');
-const messageType = require('./messageType');
+import { generateColoredString } from './generateColoredString.js';
+import { consoleColors } from './colors.js';
+import { messageType } from './messageType.js';
 
-function generateColoredString(options) {
+export function generateColoredString(options) {
     const {
         data,
         type,
     } = options
+    
     const types = Object.values(messageType);
     const checkTypeValue = types.includes(type);
     let color = consoleColors.default;
@@ -48,5 +50,3 @@ function generateColoredString(options) {
 
     return coloredMessage;
 }
-
-module.exports = generateColoredString;

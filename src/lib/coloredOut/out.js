@@ -1,8 +1,8 @@
-const generateColoredString = require('./generateColoredString');
-const isNullOrUndefined = require('../../lib/checkTypes/isNullOrUndefined');
-const messageType = require('./messageType');
+import { generateColoredString } from './generateColoredString.js';
+import { isNullOrUndefined } from '../checkTypes/isNullOrUndefined.js';
+import { messageType } from './messageType.js';
 
-function out(data, type) {
+export function out(data, type) {
     returnData = typeof returnData === 'boolean' ? returnData : false;
 
     let coloredMessage = generateColoredString({
@@ -24,12 +24,6 @@ function out(data, type) {
     }
 }
 
-function execute(message) {
+export function execute(message) {
     console.log(message);
-}
-
-module.exports = {
-    out,
-    execute,
-    messageType:messageType
 }
