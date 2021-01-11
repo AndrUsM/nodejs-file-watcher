@@ -1,12 +1,13 @@
-const fs = require('fs');
-const {
-    readFile
-} = require('../dataUtils/dataUtils');
-const { applicationModeConfigFilePath, applicationDefaultMode } = require('../../constants');
-const checkApplicationModeValue = require('./checkApplicationModeValue');
-const { setDefaultApplicationMode } = require('./saveApplicationMode');
+import fs from 'fs';
+import { readFile } from '../dataUtils/dataUtils.js';
+import {
+    applicationModeConfigFilePath,
+    applicationDefaultMode
+} from '../../constants.js';
+import { checkApplicationModeValue } from './checkApplicationModeValue.js';
+import { setDefaultApplicationMode } from './saveApplicationMode.js';
 
-function getApplicationMode() {
+export function getApplicationMode() {
     const _path = applicationModeConfigFilePath;
     const checkExistence = fs.existsSync(_path);
 
@@ -23,5 +24,3 @@ function getApplicationMode() {
         return applicationDefaultMode;
     }
 }
-
-module.exports = getApplicationMode;

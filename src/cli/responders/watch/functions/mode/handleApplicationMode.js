@@ -1,11 +1,11 @@
-const {
+import {
     applicationBrowserMode,
     applicationConsoleMode,
     applicationDefaultMode
-} = require("../../constants");
-const getApplicationMode = require("./getApplicationMode");
+} from "../../constants.js";
+import { getApplicationMode } from './getApplicationMode.js';
 
-function handleApplicationMode(functions) {
+export function handleApplicationMode(functions) {
     const {
         browserModeCallback,
         consoleModeCallback,
@@ -48,5 +48,3 @@ function handleInvalidFunctionValue(_function) {
         return message;
     }
 }
-
-module.exports = handleApplicationMode;

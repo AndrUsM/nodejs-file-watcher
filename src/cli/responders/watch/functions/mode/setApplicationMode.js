@@ -1,8 +1,8 @@
-const checkApplicationModeValue = require('./checkApplicationModeValue');
-const { saveApplicationMode } = require('./saveApplicationMode');
-const { setDefaultApplicationMode } = require('./saveApplicationMode');
+import { checkApplicationModeValue } from './checkApplicationModeValue.js';
+import { saveApplicationMode } from './saveApplicationMode.js';
+import { setDefaultApplicationMode } from './saveApplicationMode.js';
 
-function setApplicationMode(parameters) {
+export function setApplicationMode(parameters) {
     const {
         mode
     } = parameters;
@@ -12,7 +12,3 @@ function setApplicationMode(parameters) {
     else
         setDefaultApplicationMode();
 }
-
-
-
-module.exports = setApplicationMode;

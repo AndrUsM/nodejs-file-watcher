@@ -1,10 +1,10 @@
-const path = require('path');
-const eventEmmiter = require('../events/events');
-const formatTime = require('./formatTime');
-const getFileType = require('../watchUtils/getFileType');
-const formatSize = require('../watchUtils/formatSize');
+import path from 'path';
+import { eventEmmiter } from '../events/events.js';
+import { formatTime } from './formatTime.js';
+// import {} from '../watchUtils/getFileType.js';
+// import {} from '../watchUtils/formatSize.js';
 
-function generateReport(items) {
+export function generateReport(items) {
     const {
         current,
         previous,
@@ -34,5 +34,3 @@ function generateReport(items) {
         creationTime: formatTime(birthtime)
     }
 }
-
-module.exports = generateReport;

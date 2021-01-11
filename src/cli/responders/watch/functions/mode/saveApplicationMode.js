@@ -1,9 +1,12 @@
-const fs = require('fs');
-const { writeFile } = require('../dataUtils/dataUtils');
-const { applicationModeConfigFilePath, applicationDefaultMode } = require("../../constants");
-const checkApplicationModeValue = require('./checkApplicationModeValue');
+import fs from 'fs';
+import { writeFile } from '../dataUtils/dataUtils.js';
+import {
+    applicationModeConfigFilePath,
+    applicationDefaultMode
+} from "../../constants.js";
+import { checkApplicationModeValue } from './checkApplicationModeValue.js';
 
-function saveApplicationMode(modeValue) {
+export function saveApplicationMode(modeValue) {
     const allowWritingToFile =
         fs.existsSync(applicationModeConfigFilePath) &&
         checkApplicationModeValue(modeValue);
@@ -14,11 +17,6 @@ function saveApplicationMode(modeValue) {
     }
 }
 
-function setDefaultApplicationMode() {
+export function setDefaultApplicationMode() {
     writeFile(applicationModeConfigFilePath, applicationDefaultMode);
-}
-
-module.exports = {
-    saveApplicationMode: saveApplicationMode,
-    setDefaultApplicationMode: setDefaultApplicationMode
 }

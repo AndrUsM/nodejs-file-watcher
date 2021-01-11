@@ -1,11 +1,9 @@
-const fs = require('fs');
-const {
-    readFile
-} = require('../dataUtils/dataUtils');
-const { applicationHistoryPath } = require('../../constants');
-const SPECIAL_SIGN = require('./constants');
+import fs from 'fs';
+import { readFile } from '../dataUtils/dataUtils.js';
+import { applicationHistoryPath } from '../../constants.js';
+import { SPECIAL_SIGN } from './constants.js';
 
-function getHistory() {
+export function getHistory() {
     if (fs.existsSync(applicationHistoryPath)) {
         const data = readFile(applicationHistoryPath);
         if (data && data.length) {
@@ -35,5 +33,3 @@ function getHistory() {
         return [];
     }
 }
-
-module.exports = getHistory;

@@ -1,5 +1,6 @@
-const { applicationModeList } = require("../../constants");
+import { applicationModeList } from "../../constants.js";
 
-const checkApplicationModeValue = (mode) => typeof applicationModeList.find(item => item === mode) === 'string';
-
-module.exports = checkApplicationModeValue;
+export function checkApplicationModeValue(mode) {
+    const item = applicationModeList.find(item => item === mode)
+    return typeof item === 'string';
+}

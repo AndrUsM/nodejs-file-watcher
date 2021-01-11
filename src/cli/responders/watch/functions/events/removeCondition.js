@@ -1,6 +1,6 @@
-const getHistory = require('../historyUtils/getHistory');
+import { getHistory } from '../historyUtils/getHistory.js';
 
-function removeCondition(filePath) {
+export function removeCondition(filePath) {
     const _history = getHistory();
 
     if (_history && _history.length) {
@@ -22,5 +22,3 @@ function removeCondition(filePath) {
         return false;
     }
 }
-
-module.exports = removeCondition;

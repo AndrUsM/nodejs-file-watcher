@@ -1,14 +1,14 @@
-const fs = require('fs');
-const {
+import fs from 'fs';
+import {
     appendFile,
     createFile
-} = require('../dataUtils/dataUtils');
-const { applicationHistoryPath } = require('../../constants');
+} from '../dataUtils/dataUtils.js'
+import { applicationHistoryPath } from '../../constants.js';
+import { SPECIAL_SIGN as specialSign } from './constants.js';
 
-const specialSign = require('./constants');
 const dataObjectExpectedLength = 9;
 
-function saveToHistory(parameters) {
+export function saveToHistory(parameters) {
     let {
         fileData
     } = parameters;
@@ -29,5 +29,3 @@ const addSpecialSign = (data) => {
         specialSign
     ].join('');
 }
-
-module.exports = saveToHistory;

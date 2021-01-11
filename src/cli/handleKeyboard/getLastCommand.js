@@ -1,8 +1,6 @@
-const {
-    out,
-    messageType
-} = require('../../lib/coloredOut/out');
-const { commandHistory } = require('../commandHistory/commandsHistory');
+import { messageType } from "../../lib/coloredOut/messageType";
+import { out } from "../../lib/coloredOut/out";
+import { commandHistory } from "../commandHistory/commandsHistory";
 
 export function getLastCommand() {
     if (commandHistory.size > 0) {

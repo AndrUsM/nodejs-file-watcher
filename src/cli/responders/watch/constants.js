@@ -1,34 +1,19 @@
-const path = require('path');
+import path from 'path';
 
-const baseDataPath = path.join(__dirname, 'data');
-const currentFilesIdPath = path.resolve(baseDataPath, '.currentFilesID.dat');
-const previousFilesIdPath = path.resolve(baseDataPath, '.previousFilesID.dat');
+export const baseDataPath = path.join(__dirname, 'data');
+export const currentFilesIdPath = path.resolve(baseDataPath, '.currentFilesID.dat');
+export const previousFilesIdPath = path.resolve(baseDataPath, '.previousFilesID.dat');
 
-const watchFolderInfoPath = path.resolve(baseDataPath, '.watchFolder.dat');
+export const watchFolderInfoPath = path.resolve(baseDataPath, '.watchFolder.dat');
 
-const applicationHistoryPath = path.resolve(baseDataPath, '.history.dat');
+export const applicationHistoryPath = path.resolve(baseDataPath, '.history.dat');
 
-const applicationModeConfigFilePath = path.resolve(baseDataPath, '.mode.dat');
-const applicationBrowserMode = 'browser';
-const applicationConsoleMode = 'console';
-const applicationDefaultMode = 'default';
-const applicationModeList = [
+export const applicationModeConfigFilePath = path.resolve(baseDataPath, '.mode.dat');
+export const applicationBrowserMode = 'browser';
+export const applicationConsoleMode = 'console';
+export const applicationDefaultMode = 'default';
+export const applicationModeList = [
     applicationConsoleMode,
     applicationDefaultMode,
     applicationBrowserMode
 ];
-
-module.exports = {
-    currentFilesIdPath: currentFilesIdPath,
-    previousFilesIdPath: previousFilesIdPath,
-    applicationHistoryPath: applicationHistoryPath,
-
-    applicationBrowserMode: applicationBrowserMode,
-    applicationConsoleMode: applicationConsoleMode,
-    applicationDefaultMode: applicationDefaultMode,
-    applicationModeList: applicationModeList,
-
-    watchFolderInfoPath: watchFolderInfoPath,
-
-    applicationModeConfigFilePath: applicationModeConfigFilePath
-}

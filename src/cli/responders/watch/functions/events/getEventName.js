@@ -1,12 +1,12 @@
-const fs = require('fs');
-const { allEqual } = require('../dataUtils/arrayUtils');
-const {
+import fs from 'fs';
+import { allEqual } from '../dataUtils/arrayUtils.js'
+import {
     EVENT_ACCESS,
     EVENT_CREATED,
     EVENT_EDITED
-} = require('./eventsList');
+} from './eventsList.js';
 
-function getEventName(filePath) {
+export function getEventName(filePath) {
     const {
         atime,
         ctime,
@@ -27,5 +27,3 @@ function getEventName(filePath) {
     if (accessCondition) return EVENT_ACCESS;
     if (editCondition) return EVENT_EDITED;
 }
-
-module.exports = getEventName;

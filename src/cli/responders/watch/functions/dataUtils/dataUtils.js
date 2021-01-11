@@ -1,13 +1,11 @@
-const fs = require('fs');
-const path = require('path');
-const {
-    out,
-    messageType
-} = require('../../../../../lib/coloredOut/out');
+import fs from 'fs';
+import { basename } from 'path';
+import { out } from '../../../../../lib/coloredOut/out.js';
+import { messageType } from '../../../../../lib/coloredOut/messageType.js';
 
-function createFile(filePath) {
+export function createFile(filePath) {
     if (!fs.existsSync(filePath)) {
-        fs.writeFileSync(
+        writeFileSync(
             filePath,
             '',
             { encoding: 'utf8' }
@@ -15,7 +13,7 @@ function createFile(filePath) {
     }
 }
 
-function writeFile(filePath, data) {
+export function writeFile(filePath, data) {
     createFile(filePath);
     fs.writeFile(filePath, data, (error) => {
         if (error)
@@ -27,7 +25,7 @@ function writeFile(filePath, data) {
     })
 }
 
-function clearFile(filePath) {
+export function clearFile(filePath) {
     createFile(filePath);
     fs.truncate(
         filePath,
@@ -39,7 +37,7 @@ function clearFile(filePath) {
                     messageType.error
                 );
             } else {
-                let filename = path.basename(filePath)
+                let filename = basename(filePath)
                 out(
                     `File ${filename} was cleared!`,
                     messageType.info
@@ -49,7 +47,7 @@ function clearFile(filePath) {
     );
 }
 
-function appendFile(filePath, data) {
+export function appendFile(filePath, data) {
     createFile(filePath);
     fs.appendFile(filePath, data, { encoding: 'utf8' }, (err) => {
         if (err)
@@ -60,9 +58,9 @@ function appendFile(filePath, data) {
     })
 }
 
-function readFile(filePath) {
-    if (fs.existsSync(filePath)) {
-        const data = fs.readFileSync(filePath, { encoding: 'utf8' });
+export function readFile(filePath) {
+    if (existsSync(filePath)) {
+        const data = readFileSync(filePath, { encoding: 'utf8' });
         if (data && data.length) {
             return data.toString();
         } else {
@@ -73,10 +71,8 @@ function readFile(filePath) {
     }
 }
 
-module.exports = {
-    appendFile: appendFile,
-    clearFile: clearFile,
-    createFile: createFile,
-    readFile: readFile,
-    writeFile: writeFile
-}
+// export const appendFile = appendFile;
+// export const clearFile = clearFile;
+// export const createFile = createFile;
+// export const readFile = readFile;
+// export const writeFile = writeFile;

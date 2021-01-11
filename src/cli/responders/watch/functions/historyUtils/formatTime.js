@@ -1,4 +1,4 @@
-function formatTime(timeInMs) {
+export function formatTime(timeInMs) {
     const dateTimeObject = new Date(timeInMs);
 
     let date = fillEmptySpaces([
@@ -29,5 +29,3 @@ function fillEmptySpaces(values) {
             item;
     })
 }
-
-module.exports = formatTime;

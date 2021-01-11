@@ -1,11 +1,9 @@
-const getHistory = require('./getHistory');
-const handleApplicationMode = require('../mode/handleApplicationMode');
-const {
-    out,
-    messageType
-} = require('../../../../../lib/coloredOut/out');
+import { getHistory } from './getHistory.js';
+import { handleApplicationMode } from '../mode/handleApplicationMode';
+import { out } from '../../../../../lib/coloredOut/out.js'
+import { messageType } from '../../../../../lib/coloredOut/messageType.js'
 
-function consoleHistory() {
+export function consoleHistory() {
     const _history = getHistory();
 
     const consoleData = _history.length > 5 ?
@@ -28,5 +26,3 @@ function consoleHistory() {
         defaultModeCallback: consoleModeCallback()
     })
 }
-
-module.exports = consoleHistory;
