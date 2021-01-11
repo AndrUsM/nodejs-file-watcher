@@ -1,8 +1,6 @@
-const { watchFolderInfoPath } = require('../../constants');
-const { writeFile } = require('../dataUtils/dataUtils');
+import { writeFile } from '../dataUtils/dataUtils.js';
+import { watchFolderInfoPath } from '../../constants.js';
 
-function setWatchFolder(_path) {
+export function setWatchFolder(_path) {
     writeFile(watchFolderInfoPath, _path);
 }
-
-module.exports = setWatchFolder;

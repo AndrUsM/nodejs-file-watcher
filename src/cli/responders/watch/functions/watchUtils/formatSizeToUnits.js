@@ -1,4 +1,4 @@
-var units = [
+const units = [
     'B',
     'KB',
     'MB',
@@ -10,7 +10,7 @@ var units = [
     'YB'
 ];
 
-const formatSizeToUnits = (bytes) => {
+export function formatSizeToUnits(bytes) {
     if (bytes <= 0) {
         return [
             bytes,
@@ -31,5 +31,3 @@ const formatSizeToUnits = (bytes) => {
         unit
     ].join(' ');
 }
-
-module.exports = formatSizeToUnits

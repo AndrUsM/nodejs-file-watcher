@@ -1,10 +1,13 @@
-const os = require('os');
-const fs = require('fs');
-const path = require('path');
-const destructureLine = require("./destructureLine");
-const { applicationModeList, applicationDefaultMode } = require('../../constants');
+import path from 'path';
+import fs from 'fs';
+import os from 'os';
+import { destructureLine } from './destructureLine.js';
+import {
+    applicationModeList,
+    applicationDefaultMode
+} from '../../constants.js';
 
-function initializeApplicationMode(splitedLine) {
+export function initializeApplicationMode(splitedLine) {
     let applicationMode = splitedLine ? splitedLine[2] : applicationDefaultMode;
     applicationMode = destructureLine({
         line: applicationMode,
@@ -21,7 +24,7 @@ function initializeApplicationMode(splitedLine) {
     return applicationMode;
 }
 
-function initializeWatchPath(splitedLine) {
+export function initializeWatchPath(splitedLine) {
     let folderPath = splitedLine ? splitedLine[1] : '';
     folderPath = destructureLine({
         line: folderPath,
@@ -37,9 +40,4 @@ function initializeWatchPath(splitedLine) {
         }
     });
     return folderPath;
-}
-
-module.exports = {
-    initializeWatchPath: initializeWatchPath,
-    initializeApplicationMode: initializeApplicationMode
 }

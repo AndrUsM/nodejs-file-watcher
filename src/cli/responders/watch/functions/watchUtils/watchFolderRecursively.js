@@ -1,7 +1,10 @@
-const fs = require('fs');
-const { exec } = require('child_process');
-const { checkFileContent, checkFileContentType } = require('./checkFileType');
-const { applicationHistoryPath } = require('../../constants');
+import fs from 'fs';
+import { exec } from 'child_process';
+import {
+    checkFileContent,
+    checkFileContentType
+} from './checkFileType.js';
+import { applicationHistoryPath } from '../../constants.js'
 
 function updateFsData(parameters) {
     const {
@@ -36,7 +39,7 @@ function updateFsData(parameters) {
     })
 }
 
-function watchFolderRecursively(parameters) {
+export function watchFolderRecursively(parameters) {
     fs.watchFile(applicationHistoryPath, { encoding: 'utf8', persistent: true }, (current, prev) => {
         const condition = current.size !== prev.size || current.atime !== current.atime;
         if (condition) {
@@ -44,5 +47,3 @@ function watchFolderRecursively(parameters) {
         }
     });
 }
-
-module.exports = watchFolderRecursively;

@@ -1,10 +1,7 @@
-const {
-    out,
-    messageType
-} = require("../../../../../lib/coloredOut/out");
-const clearResponder = require("../../../clear");
+import { out } from '../../../../../lib/coloredOut/out.js';
+import { messageType } from '../../../../../lib/coloredOut/messageType.js';
 
-function destructureLine(parameters) {
+export function destructureLine(parameters) {
     const {
         line,
         field,
@@ -62,5 +59,3 @@ function exitOnError() {
         console.clear();
     }, 5000);
 }
-
-module.exports = destructureLine;

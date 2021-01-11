@@ -1,8 +1,8 @@
 import path from 'path';
 import { eventEmmiter } from '../events/events.js';
 import { formatTime } from './formatTime.js';
-// import {} from '../watchUtils/getFileType.js';
-// import {} from '../watchUtils/formatSize.js';
+import { getFileType } from '../watchUtils/getFileType.js';
+import { formatSize } from '../watchUtils/formatSize.js';
 
 export function generateReport(items) {
     const {

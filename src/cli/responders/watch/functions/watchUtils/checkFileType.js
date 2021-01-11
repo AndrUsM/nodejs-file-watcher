@@ -1,11 +1,11 @@
-const fs = require('fs');
+import fs from 'fs';
 
-const checkFileContentType = {
+export const checkFileContentType = {
     "directory": "dir",
     "file": "file"
 }
 
-function checkFileContent(folderPath, type) {
+export function checkFileContent(folderPath, type) {
     switch (type) {
         case checkFileContentType.directory: {
             return fs.lstatSync(folderPath).isDirectory();
@@ -17,9 +17,4 @@ function checkFileContent(folderPath, type) {
             return false;
         }
     }
-}
-
-module.exports = {
-    checkFileContentType: checkFileContentType,
-    checkFileContent: checkFileContent
 }

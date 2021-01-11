@@ -1,7 +1,5 @@
-const formatSizeToUnits = require('./formatSizeToUnits');
+import { formatSizeToUnits } from './formatSizeToUnits.js';
 
-function formatSize(sizeInBytes) {
+export function formatSize(sizeInBytes) {
     return formatSizeToUnits(sizeInBytes);
 }
-
-module.exports = formatSize;

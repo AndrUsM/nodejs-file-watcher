@@ -1,7 +1,8 @@
-const { statSync } = require('fs');
+import { statSync } from 'fs';
 
-function generateFileId(filePath, options) {
+export function generateFileId(filePath, options) {
     let whitespaces = false;
+    
     if (options) {
         whitespaces = options.whitespaces ? options.whitespaces : false;
     }
@@ -16,8 +17,10 @@ function generateFileId(filePath, options) {
         ino
     ].join('-');
 
-    if (typeof whitespaces === 'boolean' && whitespaces) return `${id} `;
+    const checkWhitespacesOption = typeof whitespaces === 'boolean' && whitespaces;
+    if (checkWhitespacesOption) {
+        return `${id} `;
+    }
+
     return id;
 }
-
-module.exports = generateFileId;

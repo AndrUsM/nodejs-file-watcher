@@ -1,18 +1,17 @@
-const fs = require('fs');
-const path = require('path');
-const { createFile } = require('../dataUtils/dataUtils');
-
-const {
+import fs from 'fs';
+import path from 'path';
+import { createFile } from '../dataUtils/dataUtils.js';
+import {
     previousFilesIdPath,
     currentFilesIdPath
-} = require('../../constants');
+} from '../../constants.js';
 
-const readFilesIdType = {
+export const readFilesIdType = {
     prev: "prev",
     current: "current"
 }
 
-function readFilesId(type) {
+export function readFilesId(type) {
     let _path = '';
     switch (type) {
         case readFilesIdType.prev: {
@@ -24,7 +23,10 @@ function readFilesId(type) {
             break;
         }
     }
-    if (!path) return [];
+
+    if (!path) {
+        return [];
+    }
 
     createFile(_path);
     let data = fs.readFileSync(_path)
@@ -35,9 +37,4 @@ function readFilesId(type) {
     } else {
         return [];
     }
-}
-
-module.exports = {
-    readFilesId: readFilesId,
-    readFilesIdType: readFilesIdType
 }

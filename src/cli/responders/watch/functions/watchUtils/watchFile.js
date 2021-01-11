@@ -1,9 +1,9 @@
-const fs = require('fs');
-const generateReport = require('../historyUtils/generateReport');
-const consoleHistory = require('../historyUtils/consoleHistory');
-const saveToHistory = require('../historyUtils/saveToHistory');
+import fs from 'fs';
+import { generateReport } from '../historyUtils/generateReport.js';
+import { consoleHistory } from '../historyUtils/consoleHistory.js';
+import { saveToHistory } from '../historyUtils/saveToHistory.js';
 
-function watchFile(filePath) {
+export function watchFile(filePath) {
     return fs.watchFile(
         filePath,
         { persistent: true },
@@ -20,5 +20,3 @@ function watchFile(filePath) {
         }
     )
 }
-
-module.exports = watchFile;

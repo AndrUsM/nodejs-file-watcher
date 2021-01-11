@@ -1,14 +1,12 @@
-const fs = require('fs');
-const os = require('os');
-const { watchFolderInfoPath } = require('../../constants');
-const { readFile } = require('../dataUtils/dataUtils');
+import fs from 'fs';
+import os from 'os';
+import { readFile } from '../dataUtils/dataUtils.js';
+import { watchFolderInfoPath } from '../../constants.js';
 
-function getWatchFolder() {
+export function getWatchFolder() {
     if (fs.existsSync(watchFolderInfoPath)) {
         return readFile(watchFolderInfoPath);
     } else {
         return os.homedir();
     }
 }
-
-module.exports = getWatchFolder;
