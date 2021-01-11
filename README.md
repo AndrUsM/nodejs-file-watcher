@@ -13,6 +13,13 @@ user@user:~$ npm start
  watch path=PATH_TO_FOLDER__OR_FILE mode=MODE_VALUE
 ```
 
+## Available urls
+Url    | Description
+------ | -----------
+/      | Index route, last 5 file changes.
+/history| All changes in json format.
+
+
 ## Available commands:
 
 Command | Parameters | Parameter info | Required | Description
